@@ -1,0 +1,5 @@
+E-mail,Last Name,First Name,SMS,WhatsApp,Double Opt In,Opt In
+jangwen0923@gmail.com,Jang,Wen,12154829
+alexander02@outlook.com,Alexander
+xiujin@info.com	
+jovan333@outlook.com
