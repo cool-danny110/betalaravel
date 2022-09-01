@@ -40,8 +40,10 @@ Route::post('campaign/delete', [CampaignController::class, 'delete'])->name('cam
 Route::get('/report', [ReportController::class, 'index']);
 Route::get('/template', [TemplateController::class, 'index']);
 Route::get('/template/select', [TemplateController::class, 'select'])->name('template.select');
+Route::post('/template/remove', [TemplateController::class, 'remove'])->name('template.remove');
 
 Route::get('/design', [TemplateController::class, 'design']);
+Route::post('/design/save', [TemplateController::class, 'save']);
 
 Route::get('/form', [FormController::class, 'index']);
 
@@ -59,6 +61,3 @@ Route::post('/contact/upload', [ContactController::class, 'upload'])->name('cont
 Route::get('/setting', [SettingController::class, 'index']);
 Route::get('/setting/default', [SettingController::class, 'default']);
 Route::post('/setting/default/save', [SettingController::class, 'default_save'])->name('default.save');
-
-
-
