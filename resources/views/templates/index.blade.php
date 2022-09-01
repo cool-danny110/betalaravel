@@ -130,7 +130,7 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
                                         <a href="{{ url('/design?id='. $id. '&type=featured') }}"
-                                            class="btn btn-sm btn-primary">Edit</a>
+                                            class="btn btn-sm btn-primary">Select</a>
                                     </div>
                                     <!-- <a href="#"><small class="text-muted">Preview</small></a> -->
                                 </div>
@@ -184,7 +184,7 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
                                         <a href="{{ url('/design?id='. $id. '&type=default') }}"
-                                            class="btn btn-sm btn-primary">Edit</a>
+                                            class="btn btn-sm btn-primary">Select</a>
                                     </div>
                                     <!-- <a href="#"><small class="text-muted">Preview</small></a> -->
                                 </div>

@@ -229,7 +229,7 @@
             root: "{{ URL::asset('public/assets/libs/dist') }}",
             url: "{{ 'public/templates/'. $type. '/'. $id }}",
             urlBack: "{{ url('template'). '#mytemplates' }}",
-            uploadAssetUrl: 'asset.php',
+            uploadAssetUrl: "{{ url('template/uploadAsset') }}",
             uploadAssetMethod: 'POST',
             uploadTemplateUrl: 'upload.php',
             uploadTemplateCallback: function (response) {
