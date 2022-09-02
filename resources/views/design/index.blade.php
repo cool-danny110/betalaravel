@@ -3,6 +3,12 @@
 <title>ACCOUNT : EDIT TEMPLATE</title>
 @section('customStyle')
 <link rel="stylesheet" href="{{ URL::asset('public/assets/libs/dist/builder.css') }}">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
+    integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.js"
+    integrity="sha512-sn/GHTj+FCxK5wam7k9w4gPPm6zss4Zwl/X9wgrvGMFbnedR8lTUSLdsolDRBRzsX6N+YgG6OWyvn9qaFVXH9w=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 @endsection
 @section('content')
 <div class="content">
@@ -228,7 +234,7 @@
             showInlineToolbar: true, // default == true
             root: "{{ URL::asset('public/assets/libs/dist') }}",
             url: "{{ 'public/templates/'. $type. '/'. $id }}",
-            urlBack: "{{ url('template'). '#mytemplates' }}",
+            urlBack: "{{ url('template'). '#template_card_'. $id }}",
             uploadAssetUrl: "{{ url('template/uploadAsset') }}",
             uploadAssetMethod: 'POST',
             uploadTemplateUrl: 'upload.php',
@@ -253,6 +259,8 @@
                 change_template|export|save_close|footer_exit|help
             */
             // disableFeatures: [ 'change_template', 'export', 'save_close', 'footer_exit', 'help' ], 
+            disableFeatures: ['change_template', 'export'],
+
 
             // disableWidgets: [ 'HeaderBlockWidget' ], // disable widgets
             export: {
@@ -278,6 +286,40 @@
 
         editor.init();
     });
+
+    function savethumbnail() {
+        // console.log($("#builder_iframe").contents().find(".builderjs-layout")[0]);
+        var images = $("#builder_iframe").contents().find("img");
+        var links = $("#builder_iframe").contents().find("link");
+
+        for (i = 0; i < links.length; i++) {
+            links[i].href = links[i].href;
+        }
+
+        for (i = 0; i < images.length; i++) {
+            images[i].src = images[i].src;
+        }
+        console.log($("#builder_iframe").contents().find(".builderjs-layout div")[0]);
+        html2canvas($("#builder_iframe").contents().find(".builderjs-layout div")[0]).then((canvas) => {
+            console.log("done ... ");
+            var data = canvas.toDataURL('image/png');
+            // console.log(data);
+            $.ajax({
+                url: "{{ route('template.savethumbnail') }}",
+                headers: {
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                },
+                method: "post",
+                data: {
+                    templateId: params.get('id'),
+                    data: data
+                    // user_id: Send user id here
+                }
+            }).then(() => {
+
+            })
+        });
+    }
 
 </script>
 @endsection

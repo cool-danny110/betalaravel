@@ -129,7 +129,7 @@
                                         href="javascript:;">KrenkyStudio</a></div>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <a href="{{ url('/design?id='. $id. '&type=featured') }}"
+                                        <a href="{{ url('/template/select?id='. $id. '&type=featured') }}"
                                             class="btn btn-sm btn-primary">Select</a>
                                     </div>
                                     <!-- <a href="#"><small class="text-muted">Preview</small></a> -->
@@ -183,7 +183,7 @@
                                         href="javascript:;">KrenkyStudio</a></div>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <a href="{{ url('/design?id='. $id. '&type=default') }}"
+                                        <a href="{{ url('/template/select?id='. $id. '&type=default') }}"
                                             class="btn btn-sm btn-primary">Select</a>
                                     </div>
                                     <!-- <a href="#"><small class="text-muted">Preview</small></a> -->
@@ -227,7 +227,8 @@
                     ?>
                     <?php if(file_exists($path . "/index.html")){ ?>
                     <div class="col-md-3" id="template_card_{{ $id }}">
-                        <div class="card mb-4 shadow-sm">
+                        <div class="card mb-4 shadow-sm"
+                            style="{{ session('badge') == $id ? 'border: solid 3px red' : '' }}">
                             <a
                                 href="{{ url('/design?id='. $id. '&type=user') }}">
                                 <img width="100%" height="100%" class="_1xvs1"

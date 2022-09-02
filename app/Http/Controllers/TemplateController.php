@@ -13,6 +13,7 @@ class TemplateController extends Controller
 
     public function __construct() {
         $this->user_id = Cache::get('userId');
+        $this->user_id = 4;
     }
 
     // Template list view
@@ -21,8 +22,21 @@ class TemplateController extends Controller
         return view('templates.index', compact('mylist'));
     }
 
-    function select() {
-        
+    function select(Request $request) {
+        $templateID = $request->id;
+        $type = $request->type;
+        $newTemplateID = $this->generateRandomString();
+
+     
+        $org_path = __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/" . $type . "/" . $templateID;
+        $dist_path = __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/" . "user" . "/" . $newTemplateID;
+
+        File::copyDirectory($org_path, $dist_path); // Copy Template Directory
+        Template::create([      // Assign template to user and store it to db
+            'user_id' => $this->user_id,
+            'template_id' => $newTemplateID,
+        ]);
+        return redirect()->to('template#template_card_'. $newTemplateID)->with('badge', $newTemplateID);
     }
 
     function remove(Request $request) {
@@ -53,26 +67,12 @@ class TemplateController extends Controller
 
         $templateID = $request->template_id;
         $type = $request->type;
-        $newTemplateID = $this->generateRandomString();
        
         // Get the directory path of the specified template on the hosting server
         // Path may look like this: /storage/templates/{type}/{ID}/
         // In our sample templates, the HTML content is stored in the "index.html" file
-
-        $org_path = __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/" . $type . "/" . $templateID;
-        $dist_path = __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/" . "user" . "/" . $newTemplateID;
-
-        if($type == "user") // If user clicked save and exit on currently customizing template, it might be stored in same url.
-            $dist_path = $org_path;
-
-        File::copyDirectory($org_path, $dist_path); // Copy Template Directory
-        if($type != "user"){
-            Template::create([      // Assign template to user and store it to db
-                'user_id' => $this->user_id,
-                'template_id' => $newTemplateID,
-            ]);
-        }
         
+        $dist_path = __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/" . "user" . "/" . $templateID;
         // Get the HTML content submitted from BuilderJS (when user clicks SAVE)
         $html = $request->content;
         $newIndexPath = $dist_path. "/index.html";
@@ -148,5 +148,12 @@ class TemplateController extends Controller
         header("HTTP/1.1 200");
         echo json_encode([ 'url' => $filename ]);
 
+    }
+
+    public function savethumbnail(Request $request) {
+        $base64 = $request->data;
+        $path =  __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/" . "user" . "/" . $request->templateId . "/thumb.png";
+        $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $base64));
+        file_put_contents($path, $data);
     }
 }
