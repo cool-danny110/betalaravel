@@ -43,6 +43,8 @@ Route::get('/template/select', [TemplateController::class, 'select'])->name('tem
 Route::post('/template/remove', [TemplateController::class, 'remove'])->name('template.remove');
 Route::post('/template/uploadAsset', [TemplateController::class, 'uploadAsset'])->name('template.uploadAsset');
 Route::post('/template/savethumbnail', [TemplateController::class, 'savethumbnail'])->name('template.savethumbnail');
+Route::get('/template/testEmailSending', [TemplateController::class, 'testEmailSending'])->name('template.testEmailSending');
+
 
 Route::get('/design', [TemplateController::class, 'design']);
 Route::post('/design/save', [TemplateController::class, 'save']);

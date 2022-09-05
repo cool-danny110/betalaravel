@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Template;
 use Illuminate\Support\Facades\Cache;
 use File;
+use Mail;
 
 class TemplateController extends Controller
 {
@@ -155,5 +156,17 @@ class TemplateController extends Controller
         $path =  __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/" . "user" . "/" . $request->templateId . "/thumb.png";
         $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $base64));
         file_put_contents($path, $data);
+    }
+
+    public function testEmailSending(Request $request) {
+        $param = array();
+
+        $result = Mail::send('emails.UAiziu5P8SQlr.index', $param, function ($message) {
+            $message->to('cloudrider.m92@gmail.com', 'Hybridmail Techics')->subject('Template emali sending');
+            $message->from('no-reply@hybridmail.techics.com', 'Hybridmail Techics');
+        });
+
+        var_dump($result);
+        exit(0);
     }
 }
