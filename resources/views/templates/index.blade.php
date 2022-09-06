@@ -70,11 +70,6 @@
         box-shadow: 0 .125rem .5rem rgba(0, 0, 0, .2) !important;
     }
 
-    <blade media|%20(min-width%3A%20768px)%20%7B%0D>.bd-placeholder-img-lg {
-        font-size: 3.5rem;
-    }
-    }
-
 </style>
 @section('content')
 <div class="content contact-form">
@@ -88,179 +83,232 @@
             </button>
         </a>
     </div> -->
-    <form method="POST" action="{{ route('campaign.update') }}">
-        @csrf
 
-        <!-- Featured Template Start -->
-        <div class="album py-5 bg-light" id="example">
-            <div class="container">
-                <div class="text-center mb-5">
-                    <h2 class="font-weight-normal font-size-40">Featured Templates</h2>
-                    <p class="text-muted">
-                        Start your design by choosing one of available featured templates that come with our HybridMail
-                        application.
-                    </p>
+    <!-- Featured Template Start -->
+    <div class="album py-5 bg-light" id="example">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="font-weight-normal font-size-40">Featured Templates</h2>
+                <p class="text-muted">
+                    Start your design by choosing one of available featured templates that come with our HybridMail
+                    application.
+                </p>
+            </div>
+            <div class="row">
+                <?php
+        $dir = __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/featured/";
+        $templateUrl = array_diff(scandir($dir), array('..', '.'));
+        foreach ($templateUrl as $name) {
+            if ($name != '0_3_form_builder') {
+                $path = __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/featured/" . $name;
+                $files = glob($path . "/index.html");
+                $content = file_get_contents($files[0]);
+                $preg_matchs = preg_match_all('/(<title\>([^<]*)\<\/title\>)/i', $content, $m);
+                $title = $m[2][0];
+
+                $id = $name; ?>
+                <div class="col-md-3">
+                    <div class="card mb-4 shadow-sm">
+                        <a>
+                            <img width="100%" height="100%" class="_1xvs1"
+                                src="{{ asset('public/templates/featured/'. $name . '/thumb.png') }}"
+                                title="<?php echo $title ?>" alt="<?php echo $title ?>">
+                        </a>
+                        <div class="card-body">
+                            <h5><?php echo $title ?></h5>
+                            <div class="JHf2a mb-4 small text-muted item-desc"><i> by </i><a class="R8zaM"
+                                    href="javascript:;">HybridMail</a><span> at </span><a class="R8zaM"
+                                    href="javascript:;">KrenkyStudio</a></div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a data-toggle="modal" data-target="#exampleModal_{{ $id }}"
+                                        class="btn btn-sm btn-primary">Select</a>
+                                    <form method="post" action="{{ url('/template/select') }}">
+                                        @csrf
+                                        <div class="modal" tabindex="-1" id="exampleModal_{{ $id }}">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Template Configuration</h5>
+                                                        <button type="button" class="btn-close" data-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <input name="id" value="{{ $id }}" hidden />
+                                                        <input name="type" value="featured" hidden />
+                                                        <label>Template Name:</label>
+                                                        <input name="name" type="text" class="form-control"
+                                                            placeholder="Enter Template Name" required />
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn-secondary"
+                                                            data-dismiss="modal">Cancel</button>
+                                                        <button type="submit" class="btn-primary">Create
+                                                            Template</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- <a href="#"><small class="text-muted">Preview</small></a> -->
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="row">
-                    <?php
-            $dir = __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/featured/";
-            $templateUrl = array_diff(scandir($dir), array('..', '.'));
-            foreach ($templateUrl as $name) {
-                if ($name != '0_3_form_builder') {
-                    $path = __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/featured/" . $name;
+                <?php
+            }
+        } ?>
+            </div>
+        </div>
+    </div>
+    <!-- Featured Template End -->
+
+    <!-- Default Template Start -->
+    <div class="album py-5 bg-light" id="example">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="font-weight-normal font-size-40">Basic Templates</h2>
+                <p class="text-muted">
+                    Start your design by choosing one of available free layout templates that come with our
+                    HybridMail application.
+                </p>
+            </div>
+            <div class="row">
+                <?php
+        $dir = __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/default/";
+        $templateUrl = array_diff(scandir($dir), array('..', '.'));
+        foreach ($templateUrl as $name) {
+            if ($name != '0_3_form_builder') {
+                $path = __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/default/" . $name;
+                $files = glob($path . "/index.html");
+                $content = file_get_contents($files[0]);
+                $preg_matchs = preg_match_all('/(<title\>([^<]*)\<\/title\>)/i', $content, $m);
+                $title = $m[2][0];
+
+                $id = $name; ?>
+                <div class="col-md-3">
+                    <div class="card mb-4 shadow-sm">
+                        <a>
+                            <img width="100%" height="100%" class="_1xvs1"
+                                src="{{ asset('public/templates/default/'. $name. '/thumb.png') }}"
+                                title="<?php echo $title ?>" alt="<?php echo $title ?>">
+                        </a>
+                        <div class="card-body">
+                            <h5><?php echo $title ?></h5>
+                            <div class="JHf2a mb-4 small text-muted item-desc"><i> by </i><a class="R8zaM"
+                                    href="javascript:;">HybridMail</a><span> at </span><a class="R8zaM"
+                                    href="javascript:;">KrenkyStudio</a></div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a data-toggle="modal" data-target="#exampleModal_{{ $id }}"
+                                        class="btn btn-sm btn-primary">Select</a>
+                                    <form method="post" action="{{ url('/template/select') }}">
+                                        @csrf
+                                        <div class="modal" tabindex="-1" id="exampleModal_{{ $id }}">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Template Configuration</h5>
+                                                        <button type="button" class="btn-close" data-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <input name="id" value="{{ $id }}" hidden />
+                                                        <input name="type" value="default" hidden />
+                                                        <label>Template Name:</label>
+                                                        <input name="name" type="text" class="form-control"
+                                                            placeholder="Enter Template Name" required />
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn-secondary"
+                                                            data-dismiss="modal">Cancel</button>
+                                                        <button type="submit" class="btn-primary">Create
+                                                            Template</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- <a href="#"><small class="text-muted">Preview</small></a> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php
+            }
+        } ?>
+            </div>
+        </div>
+    </div>
+    <!-- Default Template End -->
+
+    <!-- Customized User Template Start -->
+    <?php if(count($mylist) != 0) {?>
+    <div class="album py-5 bg-light" id="mytemplates">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="font-weight-normal font-size-40">My Templates</h2>
+                <p class="text-muted">
+                    Here are templates that you made yourself from basic and featured templates. Enjoy now!
+                </p>
+            </div>
+            <div class="row">
+                <?php
+        // $dir = __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/user/";
+        // $templateUrl = array_diff(scandir($dir), array('..', '.'));
+        foreach ($mylist as $template) {
+            $template_id = $template->template_id;
+            $name = $template->name;
+            $user = $template->user;
+            if ($template_id != '0_3_form_builder') {
+                $path = __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/user/" . $template_id;
+                if(file_exists($path . "/index.html")){
                     $files = glob($path . "/index.html");
                     $content = file_get_contents($files[0]);
                     $preg_matchs = preg_match_all('/(<title\>([^<]*)\<\/title\>)/i', $content, $m);
                     $title = $m[2][0];
 
-                    $id = $name; ?>
-                    <div class="col-md-3">
-                        <div class="card mb-4 shadow-sm">
-                            <a
-                                href="{{ url('/design?id='. $id. '&type=featured') }}">
-                                <img width="100%" height="100%" class="_1xvs1"
-                                    src="{{ asset('public/templates/featured/'. $name . '/thumb.png') }}"
-                                    title="<?php echo $title ?>" alt="<?php echo $title ?>">
-                            </a>
-                            <div class="card-body">
-                                <h5><?php echo $title ?></h5>
-                                <div class="JHf2a mb-4 small text-muted item-desc"><i> by </i><a class="R8zaM"
-                                        href="javascript:;">HybridMail</a><span> at </span><a class="R8zaM"
-                                        href="javascript:;">KrenkyStudio</a></div>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <a href="{{ url('/template/select?id='. $id. '&type=featured') }}"
-                                            class="btn btn-sm btn-primary">Select</a>
-                                    </div>
-                                    <!-- <a href="#"><small class="text-muted">Preview</small></a> -->
+                    $id = $template_id; 
+                }
+                ?>
+                <?php if(file_exists($path . "/index.html")){ ?>
+                <div class="col-md-3" id="template_card_{{ $id }}">
+                    <div class="card mb-4 shadow-sm"
+                        style="{{ session('badge') == $id ? 'border: solid 3px red' : '' }}">
+                        <a
+                            href="{{ url('/design?id='. $id. '&type=user') }}">
+                            <img width="100%" height="100%" class="_1xvs1"
+                                src="{{ asset('public/templates/user/'. $template_id. '/thumb.png') }}"
+                                title="<?php echo $name ?>" alt="<?php echo $name ?>">
+                        </a>
+                        <div class="card-body">
+                            <h5><?php echo $name ?></h5>
+                            <div class="JHf2a mb-4 small text-muted item-desc"><i> by
+                                </i><span style="color: #0264f5">{{ $user->user_login }}</span><span> at
+                                </span>{{ $template->created_at }}
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="{{ url('/design?id='. $id. '&type=user') }}"
+                                        class="btn btn-sm btn-primary">Edit</a>
                                 </div>
+                                <a style="cursor:pointer;"><small class=" text-danger fw-bold"
+                                        onClick="removeTemplate('{{ $id }}')">Remove</small></a>
                             </div>
                         </div>
                     </div>
-                    <?php
-                }
-            } ?>
                 </div>
+                <?php }?>
+                <?php
+            }
+        } ?>
             </div>
         </div>
-        <!-- Featured Template End -->
-
-        <!-- Default Template Start -->
-        <div class="album py-5 bg-light" id="example">
-            <div class="container">
-                <div class="text-center mb-5">
-                    <h2 class="font-weight-normal font-size-40">Basic Templates</h2>
-                    <p class="text-muted">
-                        Start your design by choosing one of available free layout templates that come with our
-                        HybridMail application.
-                    </p>
-                </div>
-                <div class="row">
-                    <?php
-            $dir = __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/default/";
-            $templateUrl = array_diff(scandir($dir), array('..', '.'));
-            foreach ($templateUrl as $name) {
-                if ($name != '0_3_form_builder') {
-                    $path = __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/default/" . $name;
-                    $files = glob($path . "/index.html");
-                    $content = file_get_contents($files[0]);
-                    $preg_matchs = preg_match_all('/(<title\>([^<]*)\<\/title\>)/i', $content, $m);
-                    $title = $m[2][0];
-
-                    $id = $name; ?>
-                    <div class="col-md-3">
-                        <div class="card mb-4 shadow-sm">
-                            <a
-                                href="{{ url('/design?id='. $id. '&type=default') }}">
-                                <img width="100%" height="100%" class="_1xvs1"
-                                    src="{{ asset('public/templates/default/'. $name. '/thumb.png') }}"
-                                    title="<?php echo $title ?>" alt="<?php echo $title ?>">
-                            </a>
-                            <div class="card-body">
-                                <h5><?php echo $title ?></h5>
-                                <div class="JHf2a mb-4 small text-muted item-desc"><i> by </i><a class="R8zaM"
-                                        href="javascript:;">HybridMail</a><span> at </span><a class="R8zaM"
-                                        href="javascript:;">KrenkyStudio</a></div>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <a href="{{ url('/template/select?id='. $id. '&type=default') }}"
-                                            class="btn btn-sm btn-primary">Select</a>
-                                    </div>
-                                    <!-- <a href="#"><small class="text-muted">Preview</small></a> -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <?php
-                }
-            } ?>
-                </div>
-            </div>
-        </div>
-        <!-- Default Template End -->
-
-        <!-- Customized User Template Start -->
-        <?php if(count($mylist) != 0) {?>
-        <div class="album py-5 bg-light" id="mytemplates">
-            <div class="container">
-                <div class="text-center mb-5">
-                    <h2 class="font-weight-normal font-size-40">My Templates</h2>
-                    <p class="text-muted">
-                        Here are templates that you made yourself from basic and featured templates. Enjoy now!
-                    </p>
-                </div>
-                <div class="row">
-                    <?php
-            // $dir = __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/user/";
-            // $templateUrl = array_diff(scandir($dir), array('..', '.'));
-            foreach ($mylist as $name) {
-                if ($name != '0_3_form_builder') {
-                    $path = __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/user/" . $name;
-                    if(file_exists($path . "/index.html")){
-                        $files = glob($path . "/index.html");
-                        $content = file_get_contents($files[0]);
-                        $preg_matchs = preg_match_all('/(<title\>([^<]*)\<\/title\>)/i', $content, $m);
-                        $title = $m[2][0];
-
-                        $id = $name; 
-                    }
-                    ?>
-                    <?php if(file_exists($path . "/index.html")){ ?>
-                    <div class="col-md-3" id="template_card_{{ $id }}">
-                        <div class="card mb-4 shadow-sm"
-                            style="{{ session('badge') == $id ? 'border: solid 3px red' : '' }}">
-                            <a
-                                href="{{ url('/design?id='. $id. '&type=user') }}">
-                                <img width="100%" height="100%" class="_1xvs1"
-                                    src="{{ asset('public/templates/user/'. $name. '/thumb.png') }}"
-                                    title="<?php echo $title ?>" alt="<?php echo $title ?>">
-                            </a>
-                            <div class="card-body">
-                                <h5><?php echo $title ?></h5>
-                                <div class="JHf2a mb-4 small text-muted item-desc"><i> by </i><a class="R8zaM"
-                                        href="javascript:;">HybridMail</a><span> at </span><a class="R8zaM"
-                                        href="javascript:;">KrenkyStudio</a></div>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <a href="{{ url('/design?id='. $id. '&type=user') }}"
-                                            class="btn btn-sm btn-primary">Edit</a>
-                                    </div>
-                                    <a style="cursor:pointer;"><small class=" text-danger fw-bold"
-                                            onClick="removeTemplate('{{ $id }}')">Remove</small></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <?php }?>
-                    <?php
-                }
-            } ?>
-                </div>
-            </div>
-        </div>
-        <?php } ?>
-        <!-- Customized User Template End -->
-    </form>
+    </div>
+    <?php } ?>
+    <!-- Customized User Template End -->
 </div>
 @endsection
 
@@ -284,7 +332,6 @@
                         method: "post",
                         data: {
                             template_id: id
-                            // user_id: Send user id here
                         }
                     }).then(() => {
                         $("#template_card_" + id).remove();

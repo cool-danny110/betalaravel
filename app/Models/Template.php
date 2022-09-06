@@ -13,7 +13,11 @@ class Template extends Model
     
     protected $fillable = [
         'user_id',
+        'name',
         'template_id',
     ];
 
+    public function user() {
+        return $this->belongsTo('App\Models\Wpuser', 'user_id');
+    }
 }

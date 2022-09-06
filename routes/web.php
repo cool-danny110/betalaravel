@@ -39,12 +39,11 @@ Route::post('campaign/delete', [CampaignController::class, 'delete'])->name('cam
 
 Route::get('/report', [ReportController::class, 'index']);
 Route::get('/template', [TemplateController::class, 'index']);
-Route::get('/template/select', [TemplateController::class, 'select'])->name('template.select');
+Route::post('/template/select', [TemplateController::class, 'select'])->name('template.select');
 Route::post('/template/remove', [TemplateController::class, 'remove'])->name('template.remove');
 Route::post('/template/uploadAsset', [TemplateController::class, 'uploadAsset'])->name('template.uploadAsset');
 Route::post('/template/savethumbnail', [TemplateController::class, 'savethumbnail'])->name('template.savethumbnail');
 Route::get('/template/testEmailSending', [TemplateController::class, 'testEmailSending'])->name('template.testEmailSending');
-
 
 Route::get('/design', [TemplateController::class, 'design']);
 Route::post('/design/save', [TemplateController::class, 'save']);
@@ -57,6 +56,8 @@ Route::post('/contact/store', [ContactController::class, 'store'])->name('contac
 Route::get('/contact/edit/{id}', [ContactController::class, 'edit'])->name('contact.edit');
 Route::post('/contact/update', [ContactController::class, 'update'])->name('contact.update');
 Route::post('contact/delete', [ContactController::class, 'delete'])->name('contact.delete');
+Route::post('contact/deleteSelected', [ContactController::class, 'deleteSelected'])->name('contact.deleteSelected');
+
 
 Route::get('/contact/import', [ContactController::class, 'import'])->name('contact.import');
 Route::post('/contact/fileimport', [ContactController::class, 'fileimport'])->name('contact.fileimport');

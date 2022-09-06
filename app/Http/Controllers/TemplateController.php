@@ -14,20 +14,20 @@ class TemplateController extends Controller
 
     public function __construct() {
         $this->user_id = Cache::get('userId');
-        $this->user_id = 4;
+        // $this->user_id = 7;
     }
 
     // Template list view
     function index() {
-        $mylist = Template::where('user_id', $this->user_id)->pluck('template_id')->toArray();
+        $mylist = Template::where('user_id', $this->user_id)->get();
         return view('templates.index', compact('mylist'));
     }
 
     function select(Request $request) {
         $templateID = $request->id;
         $type = $request->type;
+        $name = $request->name;
         $newTemplateID = $this->generateRandomString();
-
      
         $org_path = __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/" . $type . "/" . $templateID;
         $dist_path = __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/" . "user" . "/" . $newTemplateID;
@@ -36,6 +36,7 @@ class TemplateController extends Controller
         Template::create([      // Assign template to user and store it to db
             'user_id' => $this->user_id,
             'template_id' => $newTemplateID,
+            'name' => $name,
         ]);
         return redirect()->to('template#template_card_'. $newTemplateID)->with('badge', $newTemplateID);
     }

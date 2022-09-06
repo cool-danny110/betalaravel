@@ -13,6 +13,7 @@ class ContactController extends Controller
 
     public function __construct() {
         $this->user_id = Cache::get('userId');
+        // $this->user_id = 7;
     }
 
 
@@ -97,11 +98,26 @@ class ContactController extends Controller
         return redirect()->route('contact.index')->with('success', 'It is successfully removed.');
     }
 
+    public function deleteSelected(Request $request) {
+        $selected = json_decode($request->selected);
+        if(!$this->user_id)
+            return redirect()->to(env('base_url'). '/?page_id=394');
+
+        $result = Contact::where('user_id', $this->user_id)->whereIn('id', $selected)->first();
+        if(!$result)
+            return view('forbidden');
+
+        Contact::whereIn('id', $selected)->delete();
+        echo json_encode("success");
+        // return redirect()->route('contact.index')->with('success', 'Selected Contat(s) successfully removed');
+    }
+
     public function import() {
         return view('contacts.import');
     }
 
     public function fileimport(Request $request) {
+        $type = $request->type;
         $file = $request->file('file');
         if($file)
             $filename = time(). '_'. $file->getClientOriginalName();
@@ -133,6 +149,8 @@ class ContactController extends Controller
             $num = count($filedata);
             // Skip first row (Remove below comment if you want to skip the first row)
             if ($i == 0) {
+                if(!($type == 'hybrid' && $num == 7) && !($type == 'google' && $num == 31))
+                    return redirect()->back()->with('error', 'The imported file is invalid. Please check sample templates regarding to type.');
                 $i++;
                 continue;
             }
@@ -141,13 +159,12 @@ class ContactController extends Controller
             }
             $i++;
         }
-        // var_dump($importData_arr);
-        // exit(0);
-        return view('contacts.import-process', ['data' => $importData_arr, 'filename' => $filename]);
+        return view('contacts.import-process', ['data' => $importData_arr, 'filename' => $filename, 'type' => $type]);
     }
 
     public function upload(Request $request) {
         $filename = $request->filename;
+        $type = $request->type;
 
         $location = 'uploads'; //Created an "uploads" folder for that
         $filepath = public_path($location . "/" . $filename);
@@ -166,20 +183,31 @@ class ContactController extends Controller
                 continue;
             }
             
-            // $data = $filedata[$c];
-            // var_dump($data);
-            // exit();
             if($filedata[0] != '') {
-                $new_contact = [
-                    'user_id' => $this->user_id,
-                    'email' => $filedata[0],
-                    'lastname' => isset($filedata[1]) ? $filedata[1] : '',
-                    'firstname' => isset($filedata[2]) ? $filedata[2] : '',
-                    'sms' => isset($filedata[3]) ? $filedata[3] : '',
-                    'whatsapp' => isset($filedata[4]) ? $filedata[4] : '',
-                    'double_opt_in' => isset($filedata[5]) ? $filedata[5] : '',
-                    'opt_in' => isset($filedata[6]) ? $filedata[6] : '',
-                ];
+                if($type == 'hybrid') {
+                    $new_contact = [
+                        'user_id' => $this->user_id,
+                        'email' => $filedata[0],
+                        'lastname' => isset($filedata[1]) ? $filedata[1] : '',
+                        'firstname' => isset($filedata[2]) ? $filedata[2] : '',
+                        'sms' => isset($filedata[3]) ? $filedata[3] : '',
+                        'whatsapp' => isset($filedata[4]) ? $filedata[4] : '',
+                        'double_opt_in' => isset($filedata[5]) ? $filedata[5] : '',
+                        'opt_in' => isset($filedata[6]) ? $filedata[6] : '',
+                    ];
+                } else if($type == 'google') {
+                    $new_contact = [
+                        'user_id' => $this->user_id,
+                        'email' => $filedata[30],
+                        'lastname' => isset($filedata[1]) ? $filedata[1] : '',
+                        'firstname' => isset($filedata[3]) ? $filedata[3] : '',
+                        'sms' => '',
+                        'whatsapp' => '',
+                        'double_opt_in' => '',
+                        'opt_in' => '',
+                    ];
+                }
+                
                 Contact::create($new_contact);
             }
         
