@@ -288,6 +288,7 @@
     });
 
     function savethumbnail() {
+        console.log("Thumbnail");
         // console.log($("#builder_iframe").contents().find(".builderjs-layout")[0]);
         var images = $("#builder_iframe").contents().find("img");
         var links = $("#builder_iframe").contents().find("link");

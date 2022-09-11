@@ -38,7 +38,8 @@ class TemplateController extends Controller
             'template_id' => $newTemplateID,
             'name' => $name,
         ]);
-        return redirect()->to('template#template_card_'. $newTemplateID)->with('badge', $newTemplateID);
+        return redirect()->to('design?id='. $newTemplateID. '&type=user');
+        // return redirect()->to('template#template_card_'. $newTemplateID)->with('badge', $newTemplateID);
     }
 
     function remove(Request $request) {
@@ -88,6 +89,7 @@ class TemplateController extends Controller
 
         // Actually write the updated HTML content to the index.html file
         file_put_contents($newIndexPath, $html);
+        // return redirect()->to('template#template_card_'. $templateID)->with('badge', $templateID);
 
         // Return HTTP 200, SUCCESS
         header("HTTP/1.1 200");
