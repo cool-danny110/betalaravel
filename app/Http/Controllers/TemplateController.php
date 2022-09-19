@@ -165,8 +165,8 @@ class TemplateController extends Controller
         $param = array();
 
         $result = Mail::send('emails.UAiziu5P8SQlr.index', $param, function ($message) {
-            $message->to('cloudrider.m92@gmail.com', 'Hybridmail Techics')->subject('Template emali sending');
-            $message->from('no-reply@hybridmail.techics.com', 'Hybridmail Techics');
+            $message->to('cloudrider.m92@gmail.com', 'Hybridmail Techics')->subject('Template email sending');
+            $message->from('no-reply@hybridmail.techics.co', 'Hybridmail Techics');
         });
 
         var_dump($result);
