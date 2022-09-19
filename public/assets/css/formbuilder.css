@@ -1,0 +1,30 @@
+#load-save-btn,
+#main-settings-btn {
+    background-color: #db0505 !important;
+    border: none !important;
+}
+    #load-save-btn:hover,
+#main-settings-btn:hover,
+#preview-btn:hover,
+#get-code-btn:hover {
+    background: #000 !important;
+    cursor: pointer;
+}
+
+#preview-btn,
+#get-code-btn {
+    background: #0cb839 !important;
+    color: #FFF !important;
+}
+
+    #preview-btn i,
+#get-code-btn i {
+    color: #FFF !important;
+}
+
+.form-builder-content {
+    max-width: 1600px;
+    padding: 20px;
+    width: 100%;
+  }
+  

@@ -48,7 +48,14 @@ Route::get('/template/testEmailSending', [TemplateController::class, 'testEmailS
 Route::get('/design', [TemplateController::class, 'design']);
 Route::post('/design/save', [TemplateController::class, 'save']);
 
-Route::get('/form', [FormController::class, 'index']);
+Route::get('/form', [FormController::class, 'index'])->name('form.index');
+Route::get('/form/create', [FormController::class, 'create'])->name('form.create');
+Route::post('/form/save', [FormController::class, 'save'])->name('form.save');
+Route::get('/form/edit/{id}', [FormController::class, 'edit'])->name('form.edit');
+Route::post('/form/update', [FormController::class, 'update'])->name('form.update');
+
+
+Route::post('/form/delete', [FormController::class, 'delete'])->name('form.delete');
 
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
 Route::get('/contact/create', [ContactController::class, 'create']);
