@@ -38,7 +38,7 @@ Route::post('/campaign/update', [CampaignController::class, 'update'])->name('ca
 Route::post('campaign/delete', [CampaignController::class, 'delete'])->name('campaign.delete');
 
 Route::get('/report', [ReportController::class, 'index']);
-Route::get('/template', [TemplateController::class, 'index']);
+Route::get('/template', [TemplateController::class, 'index'])->name('template.index');
 Route::post('/template/select', [TemplateController::class, 'select'])->name('template.select');
 Route::post('/template/remove', [TemplateController::class, 'remove'])->name('template.remove');
 Route::post('/template/uploadAsset', [TemplateController::class, 'uploadAsset'])->name('template.uploadAsset');
