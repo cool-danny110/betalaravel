@@ -178,6 +178,6 @@ class TemplateController extends Controller
             $message->from('no-reply@hybridmail.techics.co', 'Hybridmail Techics');
         });
 
-        return redirect()->route()->back();
+        return redirect()->back();
     }
 }
