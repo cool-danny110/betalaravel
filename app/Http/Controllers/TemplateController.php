@@ -163,8 +163,8 @@ class TemplateController extends Controller
         file_put_contents($path, $data);
 
          // Copy index.html file as email template blade php file in resource/views/email/...
-         $org_file = __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/" . "user" . "/" . $templateId. "/index.html";
-         $dist_file = __DIR__ . DIRECTORY_SEPARATOR . "../../../resources/views/emails/". $templateId. ".blade.php";
+         $org_file = __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/" . "user" . "/" . $request->templateId. "/index.html";
+         $dist_file = __DIR__ . DIRECTORY_SEPARATOR . "../../../resources/views/emails/". $request->templateId. ".blade.php";
          File::copy($org_file, $dist_file);
     }
 
