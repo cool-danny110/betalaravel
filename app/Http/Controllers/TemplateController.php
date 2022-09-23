@@ -41,9 +41,9 @@ class TemplateController extends Controller
         ]);
 
         // Copy index.html file as email template blade php file in resource/views/email/...
-        $org_path = __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/" . $type . "/" . $templateID. "/index.html";
-        $dist_path = __DIR__ . DIRECTORY_SEPARATOR . "../../../resources/views/emails/". $newTemplateID. ".blade.php";
-        File::copy($org_path, $dist_path);
+        $org_file = __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/" . "user" . "/" . $newTemplateID. "/index.html";
+        $dist_file = __DIR__ . DIRECTORY_SEPARATOR . "../../../resources/views/emails/". $newTemplateID. ".blade.php";
+        File::copy($org_file, $dist_file);
 
         return redirect()->to('design?id='. $newTemplateID. '&type=user');
         // return redirect()->to('template#template_card_'. $newTemplateID)->with('badge', $newTemplateID);
