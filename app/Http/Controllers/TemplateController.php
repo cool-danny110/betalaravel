@@ -177,6 +177,6 @@ class TemplateController extends Controller
             $message->from('no-reply@hybridmail.techics.co', 'Hybridmail Techics');
         });
 
-        return redirect()->route('template.index')->with('sucess', 'The email is successfully sent.');
+        return redirect()->route('template.index')->with('success', 'The email is successfully sent.');
     }
 }
