@@ -14,7 +14,7 @@ class TemplateController extends Controller
 
     public function __construct() {
         $this->user_id = Cache::get('userId');
-        // $this->user_id = 7;
+        $this->user_id = 7;
     }
 
     // Template list view
@@ -39,11 +39,6 @@ class TemplateController extends Controller
             'template_id' => $newTemplateID,
             'name' => $name,
         ]);
-
-        // Copy index.html file as email template blade php file in resource/views/email/...
-        $org_file = __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/" . "user" . "/" . $newTemplateID. "/index.html";
-        $dist_file = __DIR__ . DIRECTORY_SEPARATOR . "../../../resources/views/emails/". $newTemplateID. ".blade.php";
-        File::copy($org_file, $dist_file);
 
         return redirect()->to('design?id='. $newTemplateID. '&type=user');
         // return redirect()->to('template#template_card_'. $newTemplateID)->with('badge', $newTemplateID);
@@ -166,6 +161,11 @@ class TemplateController extends Controller
         $path =  __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/" . "user" . "/" . $request->templateId . "/thumb.png";
         $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $base64));
         file_put_contents($path, $data);
+
+         // Copy index.html file as email template blade php file in resource/views/email/...
+         $org_file = __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/" . "user" . "/" . $templateId. "/index.html";
+         $dist_file = __DIR__ . DIRECTORY_SEPARATOR . "../../../resources/views/emails/". $templateId. ".blade.php";
+         File::copy($org_file, $dist_file);
     }
 
     public function testEmailSending(Request $request) {
