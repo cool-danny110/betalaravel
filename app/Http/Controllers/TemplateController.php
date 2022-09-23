@@ -91,7 +91,11 @@ class TemplateController extends Controller
 
         // Actually write the updated HTML content to the index.html file
         file_put_contents($newIndexPath, $html);
-        // return redirect()->to('template#template_card_'. $templateID)->with('badge', $templateID);
+        
+         // Copy index.html file as email template blade php file in resource/views/email/...
+         $org_file = __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/" . "user" . "/" . $request->templateID. "/index.html";
+         $dist_file = __DIR__ . DIRECTORY_SEPARATOR . "../../../resources/views/emails/". $request->templateID. ".blade.php";
+         File::copy($org_file, $dist_file);
 
         // Return HTTP 200, SUCCESS
         header("HTTP/1.1 200");
@@ -161,11 +165,6 @@ class TemplateController extends Controller
         $path =  __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/" . "user" . "/" . $request->templateId . "/thumb.png";
         $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $base64));
         file_put_contents($path, $data);
-
-         // Copy index.html file as email template blade php file in resource/views/email/...
-         $org_file = __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/" . "user" . "/" . $request->templateId. "/index.html";
-         $dist_file = __DIR__ . DIRECTORY_SEPARATOR . "../../../resources/views/emails/". $request->templateId. ".blade.php";
-         File::copy($org_file, $dist_file);
     }
 
     public function testEmailSending(Request $request) {
