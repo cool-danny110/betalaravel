@@ -14,7 +14,7 @@ class TemplateController extends Controller
 
     public function __construct() {
         $this->user_id = Cache::get('userId');
-        $this->user_id = 7;
+        // $this->user_id = 7;
     }
 
     // Template list view
@@ -29,6 +29,7 @@ class TemplateController extends Controller
         $name = $request->name;
         $newTemplateID = $this->generateRandomString();
      
+        // Copy Template directory to "user" with new name
         $org_path = __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/" . $type . "/" . $templateID;
         $dist_path = __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/" . "user" . "/" . $newTemplateID;
 
@@ -38,6 +39,12 @@ class TemplateController extends Controller
             'template_id' => $newTemplateID,
             'name' => $name,
         ]);
+
+        // Copy index.html file as email template blade php file in resource/views/email/...
+        $org_path = __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/" . $type . "/" . $templateID. "/index.html";
+        $dist_path = __DIR__ . DIRECTORY_SEPARATOR . "../../../resources/views/emails/". $newTemplateID. ".blade.php";
+        File::copy($org_path, $dist_path);
+
         return redirect()->to('design?id='. $newTemplateID. '&type=user');
         // return redirect()->to('template#template_card_'. $newTemplateID)->with('badge', $newTemplateID);
     }
@@ -162,14 +169,15 @@ class TemplateController extends Controller
     }
 
     public function testEmailSending(Request $request) {
+        $templateId = $request->templateId;
+        $address = $request->address;
         $param = array();
 
-        $result = Mail::send('emails.UAiziu5P8SQlr.index', $param, function ($message) {
-            $message->to('krenkson@gmail.com', 'Hybridmail Techics')->subject('Template email sending');
+        $result = Mail::send('emails.'. $templateId, $param, function ($message) use($address) {
+            $message->to($address, 'Hybridmail Techics')->subject('Template email sending');
             $message->from('no-reply@hybridmail.techics.co', 'Hybridmail Techics');
         });
 
-        var_dump($result);
-        exit(0);
+        return redirect()->route()->back();
     }
 }
