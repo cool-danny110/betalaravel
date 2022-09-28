@@ -31,11 +31,11 @@
     </div>
     
     <div class="mt-4">
-      <button type="submit" name="action" value="save" class="btn-form-primary float-end ms-4">
+      <button type="submit" name="action" value="save" class="btn-form-primary ms-2">
           {{$action_type == "new" ? "Save Template" : "Update Template"}}
       </button>
       <?php if($action_type == "new"){?>
-      <button type="submit" name="action" value="close" class="btn-form-danger float-end">
+      <button type="submit" name="action" value="close" class="btn-form-danger ms-2">
           Don't Save
       </button>
       <?php }?>
