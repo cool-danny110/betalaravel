@@ -1092,6 +1092,7 @@
     border: solid 1px gray;
     border-radius: 3px;
     padding: 5px 10px;
+    color: white;
   }
 
   .btn-form-primary:hover {
