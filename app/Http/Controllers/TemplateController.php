@@ -14,7 +14,7 @@ class TemplateController extends Controller
 
     public function __construct() {
         $this->user_id = Cache::get('userId');
-        $this->user_id = 7;
+        // $this->user_id = 7;
     }
 
     // Template list view
@@ -34,11 +34,11 @@ class TemplateController extends Controller
         $dist_path = __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/" . "user" . "/" . $newTemplateID;
 
         File::copyDirectory($org_path, $dist_path); // Copy Template Directory
-        Template::create([      // Assign template to user and store it to db
-            'user_id' => $this->user_id,
-            'template_id' => $newTemplateID,
-            'name' => $name,
-        ]);
+        // Template::create([      // Assign template to user and store it to db
+        //     'user_id' => $this->user_id,
+        //     'template_id' => $newTemplateID,
+        //     'name' => $name,
+        // ]);
 
         return redirect()->to('design?id='. $newTemplateID. '&type=user');
         // return redirect()->to('template#template_card_'. $newTemplateID)->with('badge', $newTemplateID);
@@ -67,11 +67,51 @@ class TemplateController extends Controller
         return $randomString;
     }
 
+    function save_name(Request $request) {
+        $result = Template::where('template_id', $request->template_id)->get();
+        if(count($result) == 0){
+            $action_type = "new";
+            $org_name = '';
+        }
+        else {
+            $action_type = "edit";
+            $org_name = $result[0]['name'];
+        }
+        return view('design.save-name', ['template_id' => $request->template_id, 'action_type' => $action_type, 'org_name' => $org_name]);
+    }
+
+    function storeTemplateDB(Request $request) {
+        $action = $request->action;
+        $name = $request->name;
+        if($action == "save") {
+            if($name == '')
+                return redirect()->back()->with('error', 'Please input template name.');
+
+            if($request->action_type == 'new') {
+                Template::create([      // Assign template to user and store it to db
+                    'user_id' => $this->user_id,
+                    'template_id' => $request->template_id,
+                    'name' => $name,
+                ]);
+            } else {
+                Template::where('template_id', $request->template_id)->update([
+                    'name' => $name
+                ]);
+            }
+        } else if($action == "close") {
+            $path = __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/" . "user" . "/" . $request->template_id;
+            File::deleteDirectory($path);
+        }
+
+        return redirect()->route('template.index');
+    }
+
     function save(Request $request) {
+
         header('Content-Type: application/json');
 
         $templateID = $request->template_id;
-        $type = $request->type;
+        // $type = $request->type;
        
         // Get the directory path of the specified template on the hosting server
         // Path may look like this: /storage/templates/{type}/{ID}/
@@ -101,6 +141,7 @@ class TemplateController extends Controller
         header("HTTP/1.1 200");
         echo json_encode([ 'success' => "Written to file {$newIndexPath}" ]);
         return;
+    
     }
 
     public function uploadAsset(Request $request) {

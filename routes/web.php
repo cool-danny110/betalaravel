@@ -44,9 +44,11 @@ Route::post('/template/remove', [TemplateController::class, 'remove'])->name('te
 Route::post('/template/uploadAsset', [TemplateController::class, 'uploadAsset'])->name('template.uploadAsset');
 Route::post('/template/savethumbnail', [TemplateController::class, 'savethumbnail'])->name('template.savethumbnail');
 Route::post('/template/testEmailSending', [TemplateController::class, 'testEmailSending'])->name('template.testEmailSending');
+Route::post('/template/storeTemplateDB', [TemplateController::class, 'storeTemplateDB'])->name('template.storeTemplateDB');
 
 Route::get('/design', [TemplateController::class, 'design']);
 Route::post('/design/save', [TemplateController::class, 'save']);
+Route::get('/design/save_name', [TemplateController::class, 'save_name'])->name('design.save_name');
 
 Route::get('/form', [FormController::class, 'index'])->name('form.index');
 Route::get('/form/create', [FormController::class, 'create'])->name('form.create');

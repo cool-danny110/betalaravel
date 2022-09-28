@@ -84,6 +84,78 @@
         </a>
     </div> -->
 
+    <!-- Customized User Template Start -->
+    <?php if(count($mylist) != 0) {?>
+    <div class="album py-5 bg-light" id="mytemplates">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="font-weight-normal font-size-40">My Templates</h2>
+                <p class="text-muted">
+                    Here are templates that you made yourself from basic and featured templates. Enjoy now!
+                </p>
+            </div>
+            <div class="row">
+                <?php
+        foreach ($mylist as $template) {
+            $template_id = $template->template_id;
+            $name = $template->name;
+            $user = $template->user;
+            if ($template_id != '0_3_form_builder') {
+                $path = __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/user/" . $template_id;
+                if(file_exists($path . "/index.html")){
+                    $files = glob($path . "/index.html");
+                    $content = file_get_contents($files[0]);
+                    $preg_matchs = preg_match_all('/(<title\>([^<]*)\<\/title\>)/i', $content, $m);
+                    $title = $m[2][0];
+
+                    $id = $template_id; 
+                }
+                ?>
+                <?php if(file_exists($path . "/index.html")){ ?>
+                <div class="col-md-3" id="template_card_{{ $id }}">
+                    <div class="card mb-4 shadow-sm"
+                        style="{{ session('badge') == $id ? 'border: solid 3px red' : '' }}">
+                        <div style="height: 400px; width: 100%; background-size: 100% auto; background-image:url('{{asset('public/templates/user/'. $template_id. '/thumb.png')}}')">
+
+                        </div>
+                        <div class="card-body">
+                            <h5><?php echo $name ?></h5>
+                            <div class="JHf2a mb-4 small text-muted item-desc">
+                                {{ date_format($template->created_at, 'H:i d-m-Y') }}
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="{{ url('/design?id='. $id. '&type=user') }}"
+                                        class="btn btn-sm btn-primary">Select</a>
+                                </div>
+                                <a style="cursor:pointer;"><small class=" text-danger fw-bold"
+                                        onClick="removeTemplate('{{ $id }}')">Remove</small></a>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mt-4">
+                                <form action="{{route('template.testEmailSending')}}" method="post" >
+                                    @csrf
+                                    <input name="templateId" value="{{$template_id}}" hidden>
+                                    <input class="w-100" name="address" placeholder="Receiver Address" required>
+                                    <div class="btn-group">
+                                        <button type="submit" class="btn btn-sm btn-form-primary">
+                                            Test Email Sending
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php }?>
+                <?php
+            }
+        } ?>
+            </div>
+        </div>
+    </div>
+    <?php } ?>
+    <!-- Customized User Template End -->
+    
     <!-- Featured Template Start -->
     @if ( session('success'))
         <div class="alert alert-success alert-dismissible fade show mt-4" role="alert">
@@ -126,34 +198,11 @@
                                     href="javascript:;">KrenkyStudio</a></div>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <a data-toggle="modal" data-target="#exampleModal_{{ $id }}"
-                                        class="btn btn-sm btn-primary">Select</a>
                                     <form method="post" action="{{ url('/template/select') }}">
                                         @csrf
-                                        <div class="modal" tabindex="-1" id="exampleModal_{{ $id }}">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title">Template Configuration</h5>
-                                                        <button type="button" class="btn-close" data-dismiss="modal"
-                                                            aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <input name="id" value="{{ $id }}" hidden />
-                                                        <input name="type" value="featured" hidden />
-                                                        <label>Template Name:</label>
-                                                        <input name="name" type="text" class="form-control"
-                                                            placeholder="Enter Template Name" required />
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn-secondary"
-                                                            data-dismiss="modal">Cancel</button>
-                                                        <button type="submit" class="btn-primary">Create
-                                                            Template</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <input name="id" value="{{ $id }}" hidden />
+                                        <input name="type" value="featured" hidden />
+                                        <button type="submit" class="btn btn-sm btn-primary">Select</button>
                                     </form>
                                 </div>
                                 <!-- <a href="#"><small class="text-muted">Preview</small></a> -->
@@ -206,34 +255,11 @@
                                     href="javascript:;">KrenkyStudio</a></div>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <a data-toggle="modal" data-target="#exampleModal_{{ $id }}"
-                                        class="btn btn-sm btn-primary">Select</a>
                                     <form method="post" action="{{ url('/template/select') }}">
                                         @csrf
-                                        <div class="modal" tabindex="-1" id="exampleModal_{{ $id }}">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title">Template Configuration</h5>
-                                                        <button type="button" class="btn-close" data-dismiss="modal"
-                                                            aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <input name="id" value="{{ $id }}" hidden />
-                                                        <input name="type" value="default" hidden />
-                                                        <label>Template Name:</label>
-                                                        <input name="name" type="text" class="form-control"
-                                                            placeholder="Enter Template Name" required />
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn-secondary"
-                                                            data-dismiss="modal">Cancel</button>
-                                                        <button type="submit" class="btn-primary">Create
-                                                            Template</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <input name="id" value="{{ $id }}" hidden />
+                                        <input name="type" value="default" hidden />
+                                        <button type="submit" class="btn btn-sm btn-primary">Select</button>
                                     </form>
                                 </div>
                                 <!-- <a href="#"><small class="text-muted">Preview</small></a> -->
@@ -248,82 +274,6 @@
         </div>
     </div>
     <!-- Default Template End -->
-
-    <!-- Customized User Template Start -->
-    <?php if(count($mylist) != 0) {?>
-    <div class="album py-5 bg-light" id="mytemplates">
-        <div class="container">
-            <div class="text-center mb-5">
-                <h2 class="font-weight-normal font-size-40">My Templates</h2>
-                <p class="text-muted">
-                    Here are templates that you made yourself from basic and featured templates. Enjoy now!
-                </p>
-            </div>
-            <div class="row">
-                <?php
-        foreach ($mylist as $template) {
-            $template_id = $template->template_id;
-            $name = $template->name;
-            $user = $template->user;
-            if ($template_id != '0_3_form_builder') {
-                $path = __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/user/" . $template_id;
-                if(file_exists($path . "/index.html")){
-                    $files = glob($path . "/index.html");
-                    $content = file_get_contents($files[0]);
-                    $preg_matchs = preg_match_all('/(<title\>([^<]*)\<\/title\>)/i', $content, $m);
-                    $title = $m[2][0];
-
-                    $id = $template_id; 
-                }
-                ?>
-                <?php if(file_exists($path . "/index.html")){ ?>
-                <div class="col-md-3" id="template_card_{{ $id }}">
-                    <div class="card mb-4 shadow-sm"
-                        style="{{ session('badge') == $id ? 'border: solid 3px red' : '' }}">
-                        <a
-                            href="{{ url('/design?id='. $id. '&type=user') }}">
-                            <img width="100%" height="100%" class="_1xvs1"
-                                src="{{ asset('public/templates/user/'. $template_id. '/thumb.png') }}"
-                                title="<?php echo $name ?>" alt="<?php echo $name ?>">
-                        </a>
-                        <div class="card-body">
-                            <h5><?php echo $name ?></h5>
-                            <div class="JHf2a mb-4 small text-muted item-desc"><i> by
-                                </i><span style="color: #0264f5">{{ $user->user_login }}</span><span> at
-                                </span>{{ $template->created_at }}
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <a href="{{ url('/design?id='. $id. '&type=user') }}"
-                                        class="btn btn-sm btn-primary">Edit</a>
-                                </div>
-                                <a style="cursor:pointer;"><small class=" text-danger fw-bold"
-                                        onClick="removeTemplate('{{ $id }}')">Remove</small></a>
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center mt-4">
-                                <form action="{{route('template.testEmailSending')}}" method="post" >
-                                    @csrf
-                                    <input name="templateId" value="{{$template_id}}" hidden>
-                                    <input class="w-100" name="address" placeholder="Receiver Address" required>
-                                    <div class="btn-group">
-                                        <button type="submit" class="btn btn-sm btn-form-primary">
-                                            Test Email Sending
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <?php }?>
-                <?php
-            }
-        } ?>
-            </div>
-        </div>
-    </div>
-    <?php } ?>
-    <!-- Customized User Template End -->
 </div>
 @endsection
 
