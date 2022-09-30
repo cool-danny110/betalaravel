@@ -1,4 +1,4 @@
-var rootLocation = window.location.origin + '/betalaravel';
+var rootLocation = window.location.origin + '/beta_laravel';
 
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 var asn1 = exports;
@@ -27811,10 +27811,10 @@ var FormGenerator = /** @class */ (function () {
             // Bootstrap JS
             loadjs(['https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js', 'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js'], 'core', { async: false });
             // Form plugins
-            loadjs([rootLocation + '/public/assets/formbuilder/phpformbuilder/plugins/nice-check/dist/css/nice-check-blue.min.css', rootLocation + '/public/assets/formbuilder/phpformbuilder/plugins/nice-check/dist/js/nice-check.min.js'], 'niceCheck');
-            loadjs([rootLocation + '/public/assets/formbuilder/phpformbuilder/plugins/dependent-fields/dependent-fields.min.css', rootLocation + '/public/assets/formbuilder/phpformbuilder/plugins/dependent-fields/dependent-fields.min.js'], 'dependentFields');
-            loadjs([rootLocation + '/public/assets/formbuilder/phpformbuilder/plugins/slimselect/slimselect.min.css', rootLocation + '/public/assets/formbuilder/phpformbuilder/plugins/slimselect/themes/bootstrap5.min.css', rootLocation + '/public/assets/formbuilder/phpformbuilder/plugins/slimselect/slimselect.min.js'], 'slimselect');
-            loadjs([rootLocation + '/public/assets/formbuilder/phpformbuilder/plugins/lcswitch/lc_switch.min.css', rootLocation + '/public/assets/formbuilder/phpformbuilder/plugins/lcswitch/lc_switch.min.js'], 'lc_switch');
+            loadjs([rootLocation + '/public/assets/phpformbuilder/plugins/nice-check/dist/css/nice-check-blue.min.css', rootLocation + '/public/assets/phpformbuilder/plugins/nice-check/dist/js/nice-check.min.js'], 'niceCheck');
+            loadjs([rootLocation + '/public/assets/phpformbuilder/plugins/dependent-fields/dependent-fields.min.css', rootLocation + '/public/assets/phpformbuilder/plugins/dependent-fields/dependent-fields.min.js'], 'dependentFields');
+            loadjs([rootLocation + '/public/assets/phpformbuilder/plugins/slimselect/slimselect.min.css', rootLocation + '/public/assets/phpformbuilder/plugins/slimselect/themes/bootstrap5.min.css', rootLocation + '/public/assets/phpformbuilder/plugins/slimselect/slimselect.min.js'], 'slimselect');
+            loadjs([rootLocation + '/public/assets/phpformbuilder/plugins/lcswitch/lc_switch.min.css', rootLocation + '/public/assets/phpformbuilder/plugins/lcswitch/lc_switch.min.js'], 'lc_switch');
             // Universal Icon Picker
             loadjs([rootLocation + '/public/assets/formbuilder/lib/universal-icon-picker/assets/js/universal-icon-picker.min.js'], 'iconPicker');
             // Filetree
