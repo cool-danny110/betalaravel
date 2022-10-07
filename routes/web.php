@@ -59,8 +59,15 @@ Route::post('/form/update', [FormController::class, 'update'])->name('form.updat
 
 Route::post('/form/delete', [FormController::class, 'delete'])->name('form.delete');
 
-Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
-Route::get('/contact/create', [ContactController::class, 'create']);
+Route::get('/group', [ContactController::class, 'groupindex'])->name('group.index');
+Route::get('/group/create', [ContactController::class, 'groupcreate'])->name('group.create');
+Route::post('/group/store', [ContactController::class, 'groupstore'])->name('group.store');
+Route::get('/group/edit/{id}', [ContactController::class, 'groupedit'])->name('group.edit');
+Route::post('/group/update', [ContactController::class, 'groupupdate'])->name('group.update');
+Route::post('/group/delete', [ContactController::class, 'groupdelete'])->name('group.delete');
+
+Route::get('/contact/{groupId}', [ContactController::class, 'index'])->name('contact.index');
+Route::get('/contact/{groupId}/create', [ContactController::class, 'create'])->name('contact.create');
 Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
 Route::get('/contact/edit/{id}', [ContactController::class, 'edit'])->name('contact.edit');
 Route::post('/contact/update', [ContactController::class, 'update'])->name('contact.update');
@@ -68,9 +75,9 @@ Route::post('contact/delete', [ContactController::class, 'delete'])->name('conta
 Route::post('contact/deleteSelected', [ContactController::class, 'deleteSelected'])->name('contact.deleteSelected');
 
 
-Route::get('/contact/import', [ContactController::class, 'import'])->name('contact.import');
-Route::post('/contact/fileimport', [ContactController::class, 'fileimport'])->name('contact.fileimport');
-Route::post('/contact/upload', [ContactController::class, 'upload'])->name('contact.upload');
+Route::get('/contact/{groupId}/import', [ContactController::class, 'import'])->name('contact.import');
+Route::post('/contact/{groupId}/fileimport', [ContactController::class, 'fileimport'])->name('contact.fileimport');
+Route::post('/contact/{groupId}/upload', [ContactController::class, 'upload'])->name('contact.upload');
 
 Route::get('/setting', [SettingController::class, 'index']);
 Route::get('/setting/default', [SettingController::class, 'default']);

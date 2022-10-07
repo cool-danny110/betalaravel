@@ -6,7 +6,7 @@
         Edit Contact
     </div>
     <div class="content-tool mt-3 mb-4">
-        <a href="{{url('contact')}}">
+        <a href="{{route('contact.index', $contact->group_id)}}">
             <button class="btn-form-danger text-white">
                 <i class="fa fa-arrow-left"></i>Back To Contact List
             </button>
@@ -15,7 +15,7 @@
     <form method="POST" action="{{route('contact.update')}}">
     @csrf
     <input type="text" placeholder="Email Address*" name="id" class="span2 my_input w200" value="{{$contact->id}}" hidden>
-
+    <input name="group_id" value="{{$contact->group_id}}" hidden/>
     <div class="row m-0" style="padding-top:20px;">
         <div class="col-12 col-md-6">
           <input type="email" placeholder="Email Address*" name="email" class="span2 my_input w200" value="{{$contact->email}}" required>

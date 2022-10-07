@@ -6,13 +6,21 @@
         Contacts
     </div>
     <div class="content-tool mt-3 mb-4">
-        <a href="{{ url('contact/import') }}">
+        <a href="{{url('group')}}">
+            <button class="btn-form-danger text-white">
+                <i class="fa fa-arrow-left"></i>Back To Group List
+            </button>
+        </a>
+    </div>
+   
+    <div class="content-tool mt-3 mb-4">
+        <a href="{{ route('contact.import', $groupId) }}">
             <button class="btn-form-primary me-4">
                 Import Contact
             </button>
         </a>
-        <a href="{{ url('contact/create') }}">
-            <button class="btn-form-danger text-white">
+        <a href="{{ url('contact/'. $groupId.'/create') }}">
+            <button class="btn-form-primary text-white">
                 + Add Contact
             </button>
         </a>
@@ -71,6 +79,7 @@
                                 <form method="post" action="{{ route('contact.delete') }}">
                                     @csrf
                                     <input name="id" value="{{ $value->id }}" hidden />
+                                    <input name="group_id" value="{{ $value->group_id }}" hidden />
                                     <div class="confirm-delete mt-2" style="display:none">
                                         <button type="submit" class="btn-form-danger text-white me-2">Yes</button>
                                         <button type="button" class="btn-form-primary"
@@ -82,9 +91,7 @@
                         <?php $index++; ?>
                     @endforeach
                 @else
-                    <tr>
-                        <td colspan="10">There are no data.</td>
-                    </tr>
+                    
                 @endif
             </tbody>
         </table>
@@ -104,7 +111,8 @@
                 [10, 25, 50, -1],
                 [10, 25, 50, 'All'],
             ],
-            columns: [{
+            columns: [
+                {
                     orderable: true
                 },
                 {
@@ -166,8 +174,7 @@
             var selected = [];
             for (var i = 0; i < table.rows('.selected').data().length; i++) {
                 selected.push(table.rows('.selected').data()[i][1]);
-            }
-            console.log(selected);
+            }            
 
             if (selected.length == 0) {
                 swal("Warning", "Please select contact(s) to remove");
@@ -190,6 +197,7 @@
                             },
                             method: "post",
                             data: {
+                                group_id: "{{$groupId}}",
                                 selected: JSON.stringify(selected),
                             }
                         }).then(() => {

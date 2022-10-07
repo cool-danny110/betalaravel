@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Contact;
+use App\Models\Group;
 use Illuminate\Support\Facades\Cache;
 
 
@@ -13,29 +14,89 @@ class ContactController extends Controller
 
     public function __construct() {
         $this->user_id = Cache::get('userId');
-        $this->user_id = 7;
+        // $this->user_id = 7;
     }
 
+    // ======== Group Controller ========== //
+
+    public function groupindex() {
+        if(!$this->user_id)
+            return redirect()->to(env('base_url'). '/?page_id=394');
+        
+        $data = Group::where('user_id', $this->user_id)->orderBy('created_at', 'desc')->get();
+        return view('groups.index', compact('data'));
+    }
+
+    public function groupcreate() {
+        if(!$this->user_id)
+            return redirect()->to(env('base_url'). '/?page_id=394');
+
+        return view('groups.create');
+    }
+
+    public function groupstore(Request $request) {
+        if(!$this->user_id)
+            return redirect()->to(env('base_url'). '/?page_id=394');
+
+        $new_group = [
+            'name' => $request->name,
+            'description' => $request->description,
+            'user_id' => $this->user_id,
+        ];
+        Group::create($new_group);
+
+        return redirect()->route('group.index')->with('success', 'Your group is successfully created.');
+    }
+
+    public function groupedit($id) {
+        if(!$this->user_id)
+            return redirect()->to(env('base_url'). '/?page_id=394');
+
+        $group = Group::where('id', $id)->first();
+        return view('groups.edit', compact('group'));
+    }
+
+    public function groupupdate(Request $request) {
+        if(!$this->user_id)
+            return redirect()->to(env('base_url'). '/?page_id=394');
+
+        $edit_group = [
+            'name' => $request->name,
+            'description' => $request->description,
+            'user_id' => $this->user_id,
+        ];
+        Group::where('id', $request->id)->update($edit_group);
+
+        return redirect()->route('group.index')->with('success', 'Your group is successfully updated.');
+    }
+
+
+    // ======== Contact Controller ========= //
 
     //index view
-    public function index() {
-        if(!$this->user_id)
-            return redirect()->to(env('base_url'). '/?page_id=394');
+    public function index($groupId) {
+        $groups = Group::where('user_id', $this->user_id)->where('id', $groupId)->get();
+        if(!$groups)
+            return view('forbidden');
 
-        $data = Contact::where('user_id', $this->user_id)->orderBy('created_at', 'desc')->get();
-        return view('contacts.index', compact('data'));
+        $data = Contact::where('group_id', $groupId)->orderBy('created_at', 'desc')->get();
+        return view('contacts.index', compact('data', 'groupId'));
     }
 
-    public function create() {
+    public function create($groupId) {
         if(!$this->user_id)
             return redirect()->to(env('base_url'). '/?page_id=394');
 
-        return view('contacts.create');
+        return view('contacts.create', compact('groupId'));
     }
 
     public function store(Request $request) {
         if(!$this->user_id)
             return redirect()->to(env('base_url'). '/?page_id=394');
+
+        $contacts = Contact::where('email', $request->email)->get();
+        if(count($contacts) != 0)
+            return redirect()->back()->with('error', 'Email is already taken');
 
         $new_contact = [
             'user_id' => $this->user_id,
@@ -46,10 +107,11 @@ class ContactController extends Controller
             'whatsapp' => $request->whatsapp,
             'double_opt_in' => $request->double_opt_in,
             'opt_in' => $request->opt_in,
+            'group_id' => $request->groupId,
         ];
         Contact::create($new_contact);
 
-        return redirect()->route('contact.index')->with('success', 'Your contact is successfully created.');
+        return redirect()->route('contact.index', $request->groupId)->with('success', 'Your contact is successfully created.');
     }
 
     public function edit(Request $request, $id) {
@@ -57,8 +119,8 @@ class ContactController extends Controller
             return redirect()->to(env('base_url'). '/?page_id=394');
 
         // If the contact is not assigned to current user, throw exception
-        $result = Contact::where('user_id', $this->user_id)->where('id', $id)->first();
-        if(!$result)
+        $result = Contact::where('id', $id)->first();
+        if(!$result || $result->group->user_id != $this->user_id)
             return view('forbidden');
 
         // Else go to edit page
@@ -71,7 +133,6 @@ class ContactController extends Controller
             return redirect()->to(env('base_url'). '/?page_id=394');
 
         $edit_contact = [
-            'user_id' => $this->user_id,
             'email' => $request->email,
             'lastname' => $request->lastname,
             'firstname' => $request->firstname,
@@ -82,7 +143,7 @@ class ContactController extends Controller
         ];
         Contact::where('id', $request->id)->update($edit_contact);
 
-        return redirect()->route('contact.index')->with('success', 'Your contact is successfully updated.');
+        return redirect()->route('contact.index', $request->group_id)->with('success', 'Your contact is successfully updated.');
     }
 
     public function delete(Request $request) {
@@ -90,12 +151,12 @@ class ContactController extends Controller
             return redirect()->to(env('base_url'). '/?page_id=394');
 
         // If the contact is not assigned to current user, throw exception
-        $result = Contact::where('user_id', $this->user_id)->where('id', $request->id)->first();
+        $result = Contact::where('group_id', $request->group_id)->where('id', $request->id)->first();
         if(!$result)
             return view('forbidden');
 
         Contact::where('id', $request->id)->delete();
-        return redirect()->route('contact.index')->with('success', 'It is successfully removed.');
+        return redirect()->route('contact.index', $request->group_id)->with('success', 'It is successfully removed.');
     }
 
     public function deleteSelected(Request $request) {
@@ -103,8 +164,9 @@ class ContactController extends Controller
         if(!$this->user_id)
             return redirect()->to(env('base_url'). '/?page_id=394');
 
-        $result = Contact::where('user_id', $this->user_id)->whereIn('id', $selected)->first();
-        if(!$result)
+        $result = Contact::where('group_id', $request->group_id)->whereIn('id', $selected)->first();
+        
+        if(!$result || $result->group->user_id != $this->user_id)
             return view('forbidden');
 
         Contact::whereIn('id', $selected)->delete();
@@ -112,11 +174,11 @@ class ContactController extends Controller
         // return redirect()->route('contact.index')->with('success', 'Selected Contat(s) successfully removed');
     }
 
-    public function import() {
-        return view('contacts.import');
+    public function import($groupId) {
+        return view('contacts.import', compact('groupId'));
     }
 
-    public function fileimport(Request $request) {
+    public function fileimport(Request $request, $groupId) {
         $type = $request->type;
         $file = $request->file('file');
         if($file)
@@ -159,10 +221,10 @@ class ContactController extends Controller
             }
             $i++;
         }
-        return view('contacts.import-process', ['data' => $importData_arr, 'filename' => $filename, 'type' => $type]);
+        return view('contacts.import-process', ['data' => $importData_arr, 'filename' => $filename, 'type' => $type, 'groupId' => $groupId]);
     }
 
-    public function upload(Request $request) {
+    public function upload(Request $request, $groupId) {
         $filename = $request->filename;
         $type = $request->type;
 
@@ -186,7 +248,7 @@ class ContactController extends Controller
             if($filedata[0] != '') {
                 if($type == 'hybrid') {
                     $new_contact = [
-                        'user_id' => $this->user_id,
+                        'group_id' => $groupId,
                         'email' => $filedata[0],
                         'lastname' => isset($filedata[1]) ? $filedata[1] : '',
                         'firstname' => isset($filedata[2]) ? $filedata[2] : '',
@@ -197,7 +259,7 @@ class ContactController extends Controller
                     ];
                 } else if($type == 'google') {
                     $new_contact = [
-                        'user_id' => $this->user_id,
+                        'group_id' => $groupId,
                         'email' => $filedata[30],
                         'lastname' => isset($filedata[1]) ? $filedata[1] : '',
                         'firstname' => isset($filedata[3]) ? $filedata[3] : '',
@@ -213,6 +275,6 @@ class ContactController extends Controller
         
             $i++;
         }
-        return redirect()->route('contact.index')->with('success', 'Your contact is imported successfuly.');
+        return redirect()->route('contact.index', $groupId)->with('success', 'Your contact is imported successfuly.');
     }
 }

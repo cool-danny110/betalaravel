@@ -6,7 +6,7 @@
         Import Contact
     </div>
     <div class="content-tool mt-3 mb-4">
-        <a href="{{ url('contact') }}">
+        <a href="{{ route('contact.index', $groupId) }}">
             <button class="btn-form-danger text-white">
                 <i class="fa fa-arrow-left"></i>Back To Contact List
             </button>
@@ -38,7 +38,7 @@
             </div>
         </div>
 
-        <form id="import_form_hybrid" method="post" action="{{ route('contact.fileimport') }}"
+        <form id="import_form_hybrid" method="post" action="{{ route('contact.fileimport', $groupId) }}"
             enctype="multipart/form-data">
             @csrf
             <div class="mt-4 px-4">
@@ -68,7 +68,7 @@
             </div>
         </div>
 
-        <form id="import_form_google" method="post" action="{{ route('contact.fileimport') }}"
+        <form id="import_form_google" method="post" action="{{ route('contact.fileimport', $groupId) }}"
             enctype="multipart/form-data">
             @csrf
             <div class="mt-4 px-4">

@@ -6,14 +6,26 @@
         Create Contact
     </div>
     <div class="content-tool mt-3 mb-4">
-        <a href="{{url('contact')}}">
+        <a href="{{route('contact.index', $groupId)}}">
             <button class="btn-form-danger text-white">
                 <i class="fa fa-arrow-left"></i>Back To Contact List
             </button>
         </a>
     </div>
+    @if( session('success'))
+        <div class="alert alert-success alert-dismissible fade show mt-4" role="alert">
+            {{ session('success') }}
+        </div>
+    @endif
+    @if( session('error'))
+        <div class="alert alert-danger alert-dismissible fade show mt-4" role="alert">
+            {{ session('error') }}
+        </div>
+    @endif
+
     <form method="POST" action="{{route('contact.store')}}">
     @csrf
+    <input name="groupId" value="{{$groupId}}" hidden/>
     <div class="row m-0" style="padding-top:20px;">
         <div class="col-12 col-md-6">
           <input type="email" placeholder="Email Address*" name="email" class="span2 my_input w200" required>

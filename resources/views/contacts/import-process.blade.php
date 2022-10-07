@@ -2,16 +2,16 @@
 <title>ACCOUNT : IMPORT CONTACT</title>
 @section('content')
 <div class="content contact-form">
-    <form method="post" action="{{ route('contact.upload') }}">
+    <form method="post" action="{{ route('contact.upload', $groupId) }}">
         @csrf
         <div class="sub-header">
             Import Contact
         </div>
         <input name="type" value="{{$type}}" hidden/>
         <div class="content-tool mt-3 mb-4">
-            <a href="{{ url('contact') }}">
+            <a href="{{ route('contact.import', $groupId) }}">
                 <button type="button" class="btn-form-danger text-white me-4">
-                    <i class="fa fa-arrow-left"></i>Back To Contact List
+                    <i class="fa fa-arrow-left"></i>Back
                 </button>
             </a>
             <button type="submit" class="btn-form-primary text-white">
