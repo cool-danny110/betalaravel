@@ -24,6 +24,7 @@
                     <th>No</th>
                     <th>Group Name</th>
                     <th>Description</th>
+                    <th>Number of contacts</th>
                     <th>Created At</th>
                     <th>Action</th>
                 </tr>
@@ -36,7 +37,8 @@
                             <td>{{ ((isset($_GET['page']) ? $_GET['page'] : 1)  - 1) * env('itemsperpage') + $index }}</td>
                             <td>{{ $value->name }}</td>
                             <td>{{ $value->description }}</td>
-                            <td>{{ $value->created_at }}</td>
+                            <td>{{ $value->count }}</td>
+                            <td>{{ date_format($value->created_at, 'd-m-Y') }}</td>
                             <td>
                                 <div class="d-flex">
                                     <a href="{{ url('contact/'. $value->id) }}"><button
@@ -60,7 +62,7 @@
                     @endforeach
                 @else
                     <tr>
-                        <td colspan="5">There are no group.</td>
+                        <td colspan="5">There is no group.</td>
                     </tr>
                 @endif
             </tbody>
@@ -88,6 +90,9 @@
                 },
                 {
                     orderable: false
+                },
+                {
+                    orderable: true
                 },
                 {
                     orderable: true

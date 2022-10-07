@@ -68,8 +68,8 @@
                             <td>{{ $value->whatsapp }}</td>
                             <td>{{ $value->double_opt_in }}</td>
                             <td>{{ $value->opt_in }}</td>
-                            <td>{{ $value->updated_at }}</td>
-                            <td>{{ $value->created_at }}</td>
+                            <td>{{ date_format($value->updated_at, 'd-m-Y') }}</td>
+                            <td>{{ date_format($value->created_at, 'd-m-Y') }}</td>
                             <td>
                                 <div class="d-flex">
                                     <a href="{{ url('contact/edit/'. $value->id) }}"><button

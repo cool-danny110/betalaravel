@@ -24,6 +24,9 @@ class ContactController extends Controller
             return redirect()->to(env('base_url'). '/?page_id=394');
         
         $data = Group::where('user_id', $this->user_id)->orderBy('created_at', 'desc')->get();
+        foreach($data as $row) {
+            $row['count'] = Contact::where('group_id', $row->id)->get()->count();
+        }
         return view('groups.index', compact('data'));
     }
 
