@@ -35,7 +35,10 @@ Route::get('/campaign/create', [CampaignController::class, 'create']);
 Route::post('/campaign/store', [CampaignController::class, 'store'])->name('campaign.store');
 Route::get('/campaign/edit/{id}', [CampaignController::class, 'edit'])->name('campaign.edit');
 Route::post('/campaign/update', [CampaignController::class, 'update'])->name('campaign.update');
+Route::post('/campaign/usetemplate', [CampaignController::class, 'usetemplate'])->name('campaign.usetemplate');
 Route::post('campaign/delete', [CampaignController::class, 'delete'])->name('campaign.delete');
+Route::post('campaign/duplicate', [CampaignController::class, 'duplicate'])->name('campaign.duplicate');
+Route::post('campaign/sendtest', [CampaignController::class, 'sendtest'])->name('campaign.sendtest');
 
 Route::get('/report', [ReportController::class, 'index']);
 Route::get('/template', [TemplateController::class, 'index'])->name('template.index');

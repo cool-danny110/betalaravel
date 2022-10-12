@@ -137,18 +137,6 @@
                                 <a style="cursor:pointer;"><small class=" text-danger fw-bold"
                                         onClick="removeTemplate('{{ $id }}')">Remove</small></a>
                             </div>
-                            <div class="d-flex justify-content-between align-items-center mt-4">
-                                <form action="{{route('template.testEmailSending')}}" method="post" >
-                                    @csrf
-                                    <input name="templateId" value="{{$template_id}}" hidden>
-                                    <input class="w-100" name="address" placeholder="Receiver Address" required>
-                                    <div class="btn-group">
-                                        <button type="submit" class="btn btn-sm btn-form-primary">
-                                            Test Email Sending
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
                         </div>
                     </div>
                 </div>

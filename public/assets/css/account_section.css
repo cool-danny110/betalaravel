@@ -1232,6 +1232,7 @@
 
   .red-circle {
     color: #cd0a0a !important;
+    cursor: pointer;
   }
 
   /* Design Tempalte CSS */
@@ -1266,4 +1267,23 @@
 
   /* =================== */
 
+  .clickable-group input {
+    color: #0092ff !important;
+    cursor: pointer;
+    text-decoration: none;
+    background: none;
+    border: none;
+  }
+
+  .clickable-group a {
+    color: #0092ff !important;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .clickable-group span {
+    margin: 0px 5px;
+    color: #c0ccda
+  }
+  
   /* ============================== END OF CSS OF Jovan =============================== */

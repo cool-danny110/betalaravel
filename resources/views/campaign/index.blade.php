@@ -59,7 +59,25 @@
                         @if(!empty($data) && $data->count())
                             @foreach($data as $key => $value)
                                 <tr>
-                                    <td>{{ $value->name }}</td>
+                                    <td>
+                                        <p class="fw-bold m-1" style="font-size: 18px;">{{ $value->name }}</p>
+                                        <p class="m-1" style="color: #687484; font-size: 14px;">#{{$value->id}} Updated on {{ $value->updated_at }}</p>
+                                        <div class="d-flex clickable-group">
+                                            <a href="{{url('campaign/edit/'. $value->id)}}">Edit</a>
+                                            <span> • </span>
+                                            <form action="{{route('campaign.duplicate')}}" method="POST">
+                                            @csrf
+                                            <input name="id" value="{{$value->id}}" hidden>
+                                            <input type="submit" value="Duplicate">
+                                            </form>
+                                            <span> • </span>
+                                            <form action="{{route('campaign.sendtest')}}" method="POST">
+                                            @csrf
+                                            <input name="id" value="{{$value->id}}" hidden>
+                                            <input type="submit" value="Send a test">
+                                            </form>
+                                        <div>
+                                    </td>
                                     <td></td>
                                     <td></td>
                                     <td></td>

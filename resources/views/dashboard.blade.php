@@ -22,7 +22,7 @@
                 <div class="dash_icon"><svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="#db0505;" class="bi bi-envelope-fill" viewBox="0 0 16 16">
                     <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/>
                     </svg></div>
-                <div class="dash_nb" style="color:#db0505">0</div>
+                <div class="dash_nb" style="color:#db0505">{{$campaignNum}}</div>
                 <div class="dash_info">Campaigns</div>
                 <div class="dash_value">10%</div>
             </div>
@@ -35,7 +35,7 @@
                         <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
                     </svg>
                 </div>
-                <div class="dash_nb" style="color:#222">289</div>
+                <div class="dash_nb" style="color:#222">{{$contactsNum}}</div>
                 <div class="dash_info">Contacts</div>
                 <div class="dash_value">0%</div>
             </div>
@@ -47,7 +47,7 @@
                         <path d="M2 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H2Zm12 1a1 1 0 0 1 1 1v2H1V3a1 1 0 0 1 1-1h12ZM1 13V6h6.5v8H2a1 1 0 0 1-1-1Zm7.5 1V6H15v7a1 1 0 0 1-1 1H8.5Z"/>
                         </svg>
                 </div>
-                <div class="dash_nb" style="color:#666">80</div>
+                <div class="dash_nb" style="color:#666">{{$templatesNum}}</div>
                 <div class="dash_info">Templates</div>
                 <div class="dash_value">0%</div>
             </div>

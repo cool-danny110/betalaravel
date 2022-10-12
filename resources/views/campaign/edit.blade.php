@@ -12,6 +12,11 @@
             </button>
         </a>
     </div>
+    @if ( session('success'))
+        <div class="alert alert-success alert-dismissible fade show mt-4" role="alert">
+            {{ session('success') }}
+        </div>
+    @endif
     <form method="POST" action="{{route('campaign.update')}}">
     @csrf
     <input type="text" name="id" class="span2 my_input w200" value="{{$campaign->id}}" hidden>
@@ -50,10 +55,29 @@
 
     <!-- To Section Start -->
     <fieldset>
-      <legend><i class="to-mark fa fa-check-circle me-2 {{($campaign->receiver_emails == '') ? 'red-circle' : 'green-circle'}}"></i>To: (*)</legend>
+      <legend><i class="to-mark fa fa-check-circle me-2 {{($campaign->receiver_emails == '[]') ? 'red-circle' : 'green-circle'}}"></i>To: (*)</legend>
       <div class="row m-0" style="padding: 20px;">
-        <label for="to_email_list">Send to:</label>
-        <textarea type="email" id="to_email_list" name="receiver_emails" placeholder="Email receiver list separate by new line" rows="6" onkeyup="markChange('to')">{{$campaign->receiver_emails}}</textarea>
+        <div class="form-group col-md-6">
+          <label class="mb-2">Send to:</label>  
+          <select name="contacts" id="contacts" class="form-control" onchange="selectGroup()">  
+            <option value="select" selected>Add contact group</option>
+            @foreach($groups as $group)
+            <option value="{{$group->id}}">{{$group->name}} : Contacts ({{$group->count}})</option>
+            @endforeach
+          </select>
+          <input name="receiver_emails" id="receiver_emails" value="{{$campaign->receiver_emails}}" hidden/>
+        </div>
+        <div class="form-group col-md-6">
+          <p class="fs-5 fw-bold m-0">Group Lists: (*)</p>
+          <div id="groups_list">
+            @foreach($initialGroupList as $initialGroup)
+              <div class="d-flex align-items-center fs-5">
+                  <span>{{$initialGroup->label}}</span>
+                  <i class="red-circle fa fa-minus-circle ms-2" onclick="removeGroup('{{$initialGroup->id}}')"></i>
+              </div>
+            @endforeach
+          </div>
+        </div>        
       </div>
     </fieldset>
     <!-- To Section End -->
@@ -80,7 +104,11 @@
       <div class="row" style="padding: 20px;">
         
         <div class="offset-2 col-2">
+          @if($campaign->template_id == 0)
           <img style="width: 100%;" src="{{asset('public/assets/img/template.png')}}"/>
+          @else
+          <img style="width: 100%;" src="{{asset('public/templates/user/'. $campaign->template->template_id. '/thumb.png')}}"/>
+          @endif
         </div>
         <div class="offset-1 col-2 d-flex align-items-center">
           <button class="btn-form-transparent" type="submit" name="action" value="template">{{$campaign->template_id == 0 ? 'Select Design' : 'Change Design'}}</button>
@@ -145,33 +173,76 @@
 
 @section('script')
 <script>
-function markChange(mode) {
-  if(mode == 'from'){
-    $(".from-mark").removeClass('red-circle');
-    $(".from-mark").removeClass('green-circle');
+  function selectGroup() {
+    const groupId = $("#contacts").val();
+    const groupStr = $("#contacts")[0].options[$("#contacts")[0].selectedIndex].text;
+    var strReceiverEmails = $("#receiver_emails").val()
+    var list = JSON.parse(strReceiverEmails);
 
-    if($("#from_email").val() == '' || $("#from_name").val() == '')
-      $(".from-mark").addClass('red-circle');
-    else
-      $(".from-mark").addClass('green-circle');
-  } else if(mode == 'to'){
+    if(list.filter((item)=>item.id == groupId).length != 0){
+      alert("Contact group is already added.");
+      $("#contacts").val('select')
+      return
+    }
+    
+    list.push({
+      id: groupId,
+      label: groupStr
+    });
+    $("#receiver_emails").val(JSON.stringify(list))
+    $("#contacts").val('select');
+
+    updateGroupList();
+  }
+
+  function removeGroup(groupId) {
+    var list = JSON.parse($("#receiver_emails").val())
+    list = list.filter((item)=>item.id != groupId);
+    $("#receiver_emails").val(JSON.stringify(list))
+    updateGroupList();
+  }
+
+  function updateGroupList() {
+    var list = JSON.parse($("#receiver_emails").val());
+    
     $(".to-mark").removeClass('red-circle');
     $(".to-mark").removeClass('green-circle');
 
-    if($("#to_email_list").val() == '')
+    if(list.length == 0)
       $(".to-mark").addClass('red-circle');
     else
       $(".to-mark").addClass('green-circle');
-  } else if(mode == 'subject'){
-    $(".subject-mark").removeClass('red-circle');
-    $(".subject-mark").removeClass('green-circle');
 
-    if($("#subject_line").val() == '' || $("#preview_text").val() == '')
-      $(".subject-mark").addClass('red-circle');
-    else
-      $(".subject-mark").addClass('green-circle');
+    var groupsList = ""
+    for(var i = 0; i < list.length; i++) {
+      groupsList += `<div class="d-flex align-items-center fs-5">
+                        <span>${list[i]['label']}</span>
+                        <i class="red-circle fa fa-minus-circle ms-2" onclick="removeGroup('${list[i]['id']}')"></i>
+                    </div>`
+    }
+
+    $("#groups_list").html(groupsList);
   }
-}
+
+  function markChange(mode) {
+    if(mode == 'from'){
+      $(".from-mark").removeClass('red-circle');
+      $(".from-mark").removeClass('green-circle');
+
+      if($("#from_email").val() == '' || $("#from_name").val() == '')
+        $(".from-mark").addClass('red-circle');
+      else
+        $(".from-mark").addClass('green-circle');
+    } else if(mode == 'subject'){
+      $(".subject-mark").removeClass('red-circle');
+      $(".subject-mark").removeClass('green-circle');
+
+      if($("#subject_line").val() == '' || $("#preview_text").val() == '')
+        $(".subject-mark").addClass('red-circle');
+      else
+        $(".subject-mark").addClass('green-circle');
+    }
+  }
 </script>
 
 @endsection
