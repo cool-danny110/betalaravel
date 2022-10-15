@@ -163,13 +163,13 @@ class CampaignController extends Controller
             return redirect()->route('campaign.index')->with('success', 'Your contact group is empty unable to send email.'); 
         }
         try{
+            $subject = $result->subject_line;
+            $from_email = $result->from_email;
+            $from_name = $result->from_name;
             foreach($contacts as $contact)
             {
                 $param = array();
                 $address = $contact->email;
-                $subject = $contact->subject_line;
-                $from_email = $contact->from_email;
-                $from_name = $contact->from_name;
 
                 $result = Mail::send('emails.'. $templateId, $param, function ($message) use($address, $subject, $from_email, $from_name) {
                     $message->to($address, 'Hybridmail Techics')->subject($subject);
