@@ -41,6 +41,11 @@ class ContactController extends Controller
         if(!$this->user_id)
             return redirect()->to(env('base_url'). '/?page_id=394');
 
+        $groupCnt = Group::get()->count();
+        if($groupCnt == 8)
+            return redirect()->route('group.index')->with('error', 'You can create groups upto 8 maximually.');
+            
+
         $new_group = [
             'name' => $request->name,
             'description' => $request->description,

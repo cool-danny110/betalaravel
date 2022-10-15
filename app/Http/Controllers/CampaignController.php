@@ -165,9 +165,13 @@ class CampaignController extends Controller
             {
                 $param = array();
                 $address = $contact->email;
-                $result = Mail::send('emails.'. $templateId, $param, function ($message) use($address) {
-                    $message->to($address, 'Hybridmail Techics')->subject('Template email sending');
-                    $message->from('no-reply@hybridmail.techics.co', 'Hybridmail Techics');
+                $subject = $contact->subject_line;
+                $from_email = $contact->from_email;
+                $from_name = $contact->from_name;
+
+                $result = Mail::send('emails.'. $templateId, $param, function ($message) use($address, $subject, $from_email, $from_name) {
+                    $message->to($address, 'Hybridmail Techics')->subject($subject);
+                    $message->from($from_email, $from_name);
                 });
             }
         } catch (\Exception $e) {

@@ -17,6 +17,11 @@
             {{ session('success') }}
         </div>
     @endif
+    @if( session('error'))
+        <div class="alert alert-danger alert-dismissible fade show mt-4" role="alert">
+            {{ session('error') }}
+        </div>
+    @endif
     <div class="group-content mt-2">
         <table id="groupTable" class="display" width='100%' style='border-collapse: collapse;'>
             <thead>
