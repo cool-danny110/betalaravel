@@ -41,14 +41,14 @@
           <label for="from_name">Company name: (*)</label>
           <input type="text" id="from_name" name="from_name" placeholder="[DEFAULT_FROM_NAME]" value="{{$campaign->from_name}}" onkeyup="markChange('from')" required>
         </div>
-        <div class="col-6">
+        <!-- <div class="col-6">
           <label for="default_reply_to">Customize the Reply-To Email address:</label>
           <input type="email" id="default_reply_to" name="reply_to" placeholder="[DEFAULT_REPLY_TO]" value="{{$campaign->reply_to}}">
         </div>
         <div class="col-6">
           <label for="default_to">Customize the 'To' Field:</label>
           <input type="text" id="default_to" name="name_to" placeholder="[DEFAULT_TO]" value="{{$campaign->name_to}}">
-        </div>
+        </div> -->
       </div>
     </fieldset>
     <!-- From Section End -->
