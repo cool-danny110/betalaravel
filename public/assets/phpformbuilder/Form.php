@@ -406,10 +406,10 @@ class Form
         $this->setPluginsUrl();
 
         // check registration
-        // if ($this->checkRegistration() !== true) {
-        //     $msg = 'Your copy of PHP Form Builder is NOT authorized.<br><a href="https://www.phpformbuilder.pro/index.html#license-registration" title="About PHP Form Builder License" style="color:#fff;text-decoration:underline;">About PHP Form Builder License</a>';
-        //     $this->buildErrorMsg($msg);
-        // }
+        if ($this->checkRegistration() !== true) {
+            $msg = 'Your copy of PHP Form Builder is NOT authorized.<br><a href="https://www.phpformbuilder.pro/index.html#license-registration" title="About PHP Form Builder License" style="color:#fff;text-decoration:underline;">About PHP Form Builder License</a>';
+            $this->buildErrorMsg($msg);
+        }
 
         // check if the server's PHP SESSION parameters are correct
         if (isset($_POST[$form_ID]) && !isset($_SESSION[$form_ID]) && $this->mode === 'development') {

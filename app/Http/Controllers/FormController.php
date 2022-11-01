@@ -63,4 +63,9 @@ class FormController extends Controller
 
         return redirect()->route('form.index')->with('success', 'The form is successfully removed');
     }
+
+    function submit(Request $request) {
+        var_dump($request->all());
+        exit(0);
+    }
 }

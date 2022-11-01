@@ -59,6 +59,8 @@ Route::post('/form/save', [FormController::class, 'save'])->name('form.save');
 Route::get('/form/edit/{id}', [FormController::class, 'edit'])->name('form.edit');
 Route::post('/form/update', [FormController::class, 'update'])->name('form.update');
 
+// Form submit api for create forms by customers.
+Route::post('/form/submit', [FormController::class, 'submit'])->name('form.submit');
 
 Route::post('/form/delete', [FormController::class, 'delete'])->name('form.delete');
 
