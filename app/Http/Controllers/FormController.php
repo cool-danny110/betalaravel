@@ -12,7 +12,7 @@ class FormController extends Controller
 
     public function __construct() {
         $this->user_id = Cache::get('userId');
-        $this->user_id = 7;
+        // $this->user_id = 7;
     }
 
     //index view
