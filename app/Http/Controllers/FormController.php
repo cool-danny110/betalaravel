@@ -56,6 +56,10 @@ class FormController extends Controller
         $file = __DIR__ . DIRECTORY_SEPARATOR. '../../../public/builders/'. $request->path. '.json';
         Form::where('id', $request->id)->delete();
         File::delete($file);
+        
+        $formFile = __DIR__ . DIRECTORY_SEPARATOR. '../../../public/forms/form_'. $request->path. '.php';
+        File::delete($formFile);
+
 
         return redirect()->route('form.index')->with('success', 'The form is successfully removed');
     }

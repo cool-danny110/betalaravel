@@ -13,5 +13,7 @@ npm-debug.log
 yarn-error.log
 /public/templates/user
 /public/uploads
+/public/builders
+/public/forms
 /.idea
 /.vscode

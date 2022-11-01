@@ -146,7 +146,7 @@ class FormGenerator
 
         $output .= '<pre><code class="language-php">';
         $output .= $this->php_form_code['main'];
-        $output .= '?&gt;</code></pre>';
+        $output .= '?></code></pre>';
 
         $code_part_index++;
 
@@ -154,10 +154,10 @@ class FormGenerator
         if ($this->json_form->ajax === 'true') {
             $output .= '<h5 class="fw-light"><span class="' . $numbered_class . '">' . $code_part_index . '</span>Add the following code in your page to display the form</h5>';
             $output .= '<pre><code class="language-php">';
-            $output .= '&lt;div id="' . $this->json_form->id . '-loader"&gt;&lt;/div&gt;';
+            $output .= '<div id="' . $this->json_form->id . '-loader"></div>';
             $output .= '</code></pre>';
         } else {
-            $output .= '<h5 class="fw-light"><span class="' . $numbered_class . '">' . $code_part_index . '</span>Add the following code between &lt;head&gt;&lt;/head&gt;</h5>';
+            $output .= '<h5 class="fw-light"><span class="' . $numbered_class . '">' . $code_part_index . '</span>Add the following code between <head></head></h5>';
             $output .= '<pre><code class="language-php">';
             $output .= $this->php_form_code['head'];
             $output .= '</code></pre>';
@@ -179,7 +179,7 @@ class FormGenerator
         }
 
         $output .= '<hr class="mt-4">';
-        $output .= '<h5 class="fw-light"><span class="' . $numbered_class . '">' . $code_part_index . '</span>Add the following code just before &lt;/body&gt;';
+        $output .= '<h5 class="fw-light"><span class="' . $numbered_class . '">' . $code_part_index . '</span>Add the following code just before </body>';
         if ($requiresjQuery) {
             $output .= '<sup class="text-danger ms-2">*</sup>';
         }
@@ -208,12 +208,40 @@ class FormGenerator
             $render_code = $this->reindentCode($this->php_form_code['render'], 16);
             $scripts_code = $this->reindentCode($this->php_form_code['scripts'], 4);
 
-            $replace = array($this->php_form_code['main'] . "?&gt;\n", $head_code, $render_code, $scripts_code);
+            $replace = array($this->php_form_code['main'] . "?>\n", $head_code, $render_code, $scripts_code);
             $page_code = preg_replace($find, $replace, $page_code);
             $output .= '<pre><code class="language-php">' . $page_code . '</code></pre>';
         }
 
         echo $output;
+    }
+
+    public function outputPureFormCode($title)
+    {
+        $output = '';
+        if ($this->json_form->ajax === 'true') {
+            $output .= '<div class="alert alert-info"><p>Forms loaded with Ajax use 2 files - refer to the <em>Form code</em> tab</p><p class="mb-0">It is therefore not possible to display a complete one-page code here</p></div>';
+        } else {
+            $page_code = htmlspecialchars(file_get_contents('sample-pages/' . $this->json_form->framework . '.html'));
+
+            $find = array("`\{form-php\}[\r\n]+`", "`\{form-head\}[\r\n]+`", "`\{form\}`", "`\{form-js\}`", "`\{form-title}`");
+
+            $head_code = $this->reindentCode($this->php_form_code['head'], 4);
+            $render_code = $this->reindentCode($this->php_form_code['render'], 16);
+            $scripts_code = $this->reindentCode($this->php_form_code['scripts'], 4);
+
+            $replace = array($this->php_form_code['main'] . "?>\n", $head_code, $render_code, $scripts_code, $title);
+            $page_code = preg_replace($find, $replace, $page_code);
+            $output .= $page_code;
+
+            $output = str_replace("&lt;", "<", $output);
+            $output = str_replace("&gt;", ">", $output);
+            $output = str_replace("&quot;", '"', $output);
+
+        }
+
+        return $output;
+        // echo $output;
     }
 
     public function outputPreview()
@@ -934,7 +962,7 @@ if (file_exists(\$current_file_path . \$current_file_name)) {
         -------------------------------------------------- */
 
         $start_1 = array(
-            '&lt;?php',
+            '<?php',
             'use phpformbuilder\Form;',
             'use phpformbuilder\Validator\Validator;'
         );
@@ -1193,9 +1221,9 @@ if (file_exists(\$current_file_path . \$current_file_name)) {
             $this->php_form_code['head'] = '';
             if (!empty($this->icon_font_url)) {
                 $icon_font = $this->json_form->iconFont;
-                $this->php_form_code['head'] .= "&lt;!-- $icon_font --&gt;\n\n&lt;link rel=\"stylesheet\" href=\"$this->icon_font_url\"&gt;\n\n";
+                $this->php_form_code['head'] .= "<!-- $icon_font -->\n\n<link rel=\"stylesheet\" href=\"$this->icon_font_url\">\n\n";
             }
-            $this->php_form_code['head'] .= "&lt;?php \$form->printIncludes('css'); ?&gt;\n";
+            $this->php_form_code['head'] .= "<?php \$form->printIncludes('css'); ?>\n";
         }
 
         /* render
@@ -1204,13 +1232,13 @@ if (file_exists(\$current_file_path . \$current_file_name)) {
         $render = array();
         if ($this->is_modal) {
             $btn_class = $this->getTriggerButtonClass();
-            $render[] = '&lt;button data-micromodal-trigger="modal-' . $this->json_form->id . '" class="' . $btn_class . '"&gt;Open the modal form&lt;/button>';
+            $render[] = '<button data-micromodal-trigger="modal-' . $this->json_form->id . '" class="' . $btn_class . '">Open the modal form</button>';
         } elseif ($this->is_popover) {
             $btn_class = $this->getTriggerButtonClass();
-            $render[] = '&lt;button data-popover-trigger="' . $this->json_form->id . '"' . $this->popover_data_attributes . ' class="' . $btn_class . '"&gt;Open the popover form&lt;/button&gt;';
+            $render[] = '<button data-popover-trigger="' . $this->json_form->id . '"' . $this->popover_data_attributes . ' class="' . $btn_class . '">Open the popover form</button>';
         }
         if ($this->json_form->ajax !== 'true') {
-            $render[] = '&lt;?php';
+            $render[] = '<?php';
         } else {
             $render[] = '';
         }
@@ -1222,7 +1250,7 @@ if (file_exists(\$current_file_path . \$current_file_name)) {
         }
         $render[] = '$form->render();';
         if ($this->json_form->ajax !== 'true') {
-            $render[] = '?&gt;';
+            $render[] = '?>';
         } else {
             $render[] = '';
         }
@@ -1235,18 +1263,18 @@ if (file_exists(\$current_file_path . \$current_file_name)) {
         if ($this->json_form->ajax !== 'true') {
             $scripts = [];
             if ($this->has_jquery_plugins && in_array($this->json_form->framework, $this->frameworks_without_jquery)) {
-                $scripts[] = '&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js&quot; integrity=&quot;sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==&quot; crossorigin=&quot;anonymous&quot; referrerpolicy=&quot;no-referrer&quot;&gt;&lt;/script&gt;';
+                $scripts[] = '<script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js&quot; integrity=&quot;sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==&quot; crossorigin=&quot;anonymous&quot; referrerpolicy=&quot;no-referrer&quot;></script>';
             }
-            $scripts[] = '&lt;?php';
+            $scripts[] = '<?php';
             $scripts[] = '$form->printIncludes(\'js\');';
             $scripts[] = '$form->printJsCode();';
-            $scripts[] = '?&gt;';
+            $scripts[] = '?>';
             if ($this->json_form->framework === 'material' || $this->json_form->framework === 'bs4-material') {
-                $scripts[] = '&lt;script&gt;';
+                $scripts[] = '<script>';
                 $scripts[] = '$(document).ready(function() {';
                 $scripts[] = '    $(\'select:not(.selectpicker):not(.select2)\').formSelect();';
                 $scripts[] = '});';
-                $scripts[] = '&lt;/script&gt;';
+                $scripts[] = '</script>';
             }
             $this->php_form_code['scripts'] = implode("\n", $scripts);
         } else {
@@ -1255,12 +1283,12 @@ if (file_exists(\$current_file_path . \$current_file_name)) {
                 $this->php_form->setPluginsUrl();
             }
             $scripts = array(
-                '&lt;!-- Ajax form loader --&gt;',
+                '<!-- Ajax form loader -->',
                 '',
-                '&lt;!-- Change the src url below if necessary --&gt;',
-                '&lt;script src=&quot;' . $this->php_form->plugins_url . 'ajax-data-loader/ajax-data-loader.min.js&quot;&gt;&lt;/script&gt;',
+                '<!-- Change the src url below if necessary -->',
+                '<script src=&quot;' . $this->php_form->plugins_url . 'ajax-data-loader/ajax-data-loader.min.js&quot;></script>',
                 '',
-                '&lt;script&gt;',
+                '<script>',
                 '    // --- SETUP YOUR FORM(S) BELOW IN THE &quot;ajaxForms&quot; VARIABLE ---',
                 '    var ajaxForms = [',
                 '        {',
@@ -1278,21 +1306,21 @@ if (file_exists(\$current_file_path . \$current_file_name)) {
                 '            const $formContainer = document.querySelector(currentForm.container);',
                 '            if (typeof($formContainer.dataset.ajaxForm) === &apos;undefined&apos;) {',
                 '                fetch(currentForm.url)',
-                '                .then((response) =&gt; {',
+                '                .then((response) => {',
                 '                    return response.text()',
                 '                })',
-                '                .then((data) =&gt; {',
+                '                .then((data) => {',
                 '                    $formContainer.innerHTML = &apos;&apos;;',
                 '                    $formContainer.dataset.ajaxForm = currentForm;',
                 '                    $formContainer.dataset.ajaxFormId = currentForm.formId;',
                 '                    loadData(data, currentForm.container);',
-                '                }).catch((error) =&gt; {',
+                '                }).catch((error) => {',
                 '                    console.log(error);',
                 '                });',
                 '            }',
                 '        });',
                 '    });',
-                '&lt;/script&gt;',
+                '</script>',
             );
             $this->php_form_code['scripts'] = implode("\n", $scripts);
         }

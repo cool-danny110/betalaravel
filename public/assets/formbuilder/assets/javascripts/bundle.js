@@ -28613,17 +28613,43 @@ var FormGenerator = /** @class */ (function () {
         });
         $('#save-json-on-server-btn').on('click', function() {
           if($("#form_name").val() == '') {
-            alert("Please input form name.");
+            alert("Please input form name to create.");
             return;
           }
-          _this.saveJsonFormOnServer($(this).attr('base-url'), $(this).attr('csrf'), $("#form_name").val());
+          
+          var formName = _this.saveJsonFormOnServer($(this).attr('base-url'), $(this).attr('csrf'), $("#form_name").val());
           _this.hasUnsavedChanges(false);
         });
         $('#update-json-on-server-btn').on('click', function() {
+          
           if($("#form_name").val() == '') {
-            alert("Please input form name.");
+            alert("Please input form name to update");
             return;
           }
+          var formData = {
+              userForm: _this.userForm,
+              formSections: _this.formSections,
+              formName: $(this).attr('file-name'),
+              title: $("#form_name").val()
+          };
+          var formErrors = _this.testFormConsistency();
+          if (formErrors.length > 0) {
+              _this.throwErrors(formErrors);
+              e.preventDefault();
+              return false;
+          }
+          else {
+              $.ajax({
+                  url: rootLocation + "/public/assets/formbuilder/ajax/get-form-code.php",
+                  type: 'POST',
+                  data: { 'data': JSON.stringify(formData) }
+              }).done(function (data) {
+                console.log(data)
+              }).fail(function (data, statut, error) {
+                  console.log(error);
+              });
+          }
+          
           _this.updateJsonFormOnServer($(this).attr('file-name'), $(this).attr('base-url'), $(this).attr('csrf'), $("#form_name").val());
           _this.hasUnsavedChanges(false);
         });
@@ -28936,8 +28962,31 @@ var FormGenerator = /** @class */ (function () {
                   }
                 }).done(function (data){
                   /////////////////////////////////////////////////////////////
-                tata.success('Form saved on server successfully');
-                window.location.href = serverPath + "/form";
+                  tata.success('Form saved on server successfully');
+                  var formData = {
+                      userForm: _this.userForm,
+                      formSections: _this.formSections,
+                      formName: json.msg,
+                      title: name
+                  };
+                  var formErrors = _this.testFormConsistency();
+                  if (formErrors.length > 0) {
+                      _this.throwErrors(formErrors);
+                      e.preventDefault();
+                      return false;
+                  }
+                  else {
+                      $.ajax({
+                          url: rootLocation + "/public/assets/formbuilder/ajax/get-form-code.php",
+                          type: 'POST',
+                          data: { 'data': JSON.stringify(formData) }
+                      }).done(function (data) {
+                        window.location.href = serverPath + "/form";
+                        console.log(data)
+                      }).fail(function (data, statut, error) {
+                          console.log(error);
+                      });
+                  }
                 })
             }
         }).fail(function (data, statut, error) {

@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" rel="stylesheet">
     <link href="http://localhost/beta_laravel/public/templates/user/7QiajPYKgUHsX/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://localhost/beta_laravel/public/templates/user/7QiajPYKgUHsX/css/custom.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"><link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"><link rel="stylesheet" type="text/css" id="u0" href="http://localhost/beta_laravel/public/assets/libs/dist/iframe/tinymce/skins/ui/oxide-dark/skin.min.css"><link rel="stylesheet" type="text/css" id="u1" href="http://localhost/beta_laravel/public/assets/libs/dist/iframe/tinymce/skins/ui/oxide-dark/content.inline.min.css"></head>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"><link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"><link rel="stylesheet" type="text/css" id="u0" href="http://localhost/beta_laravel/public/assets/libs/dist/iframe/tinymce/skins/ui/oxide-dark/skin.min.css"><link rel="stylesheet" type="text/css" id="u1" href="http://localhost/beta_laravel/public/assets/libs/dist/iframe/tinymce/skins/ui/oxide-dark/content.inline.min.css"><link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"><link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"></head>
   <body class="builderjs-layout" spellcheck="false">    
     <div builder-element="PageElement" style="padding-top:50px;padding-bottom:50px;">
         <div builder-element="BlockElement" style="padding-top:55px;padding-bottom:15px;text-align:center;" class="">
@@ -124,7 +124,7 @@
             </div>
         </div>
 
-        <div builder-element="BlockElement" style="padding-top:15px;padding-bottom:15px">
+        <div builder-element="BlockElement" style="padding-top:15px;padding-bottom:15px" class="">
             <div class="container">
                 <h5 builder-element="" builder-inline-edit="" style="font-size: 19px;font-weight: bold;">What does “ghibli” mean in Japanese?</h5>
                 <div class="d-flex align-items-center">
@@ -170,8 +170,7 @@
         <div builder-element="BlockElement" style="padding-top:15px;padding-bottom:15px;text-align:center;">
             <div class="container">
                 <div>
-                    <a builder-element="ButtonElement" data-style="style_1" builder-inline-edit="" class="btn btn-primary btn-lg mr-2" style="display:inline-block;font-weight:400;color:#fff;text-align:center;vertical-align:middle;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;background-color:transparent;border:1px solid transparent;padding:.7rem 2rem;font-size:1.2rem;line-height:1.5;border-radius:50px;transition:color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;background-color:#2196f3;border-color:#2196f3">Read More in Your Feed
-                    </a>
+                    <a builder-element="ButtonElement" data-style="style_1" builder-inline-edit="" class="btn btn-primary btn-lg mr-2" style="display:inline-block;font-weight:400;color:#fff;text-align:center;vertical-align:middle;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;background-color:transparent;border:1px solid transparent;padding:.7rem 2rem;font-size:1.2rem;line-height:1.5;border-radius:50px;transition:color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;background-color:#2196f3;border-color:#2196f3">Fill the form</a>
                 </div>
             </div>
         </div>
@@ -204,4 +203,4 @@
     </div>
   
 
-<iframe class="html2canvas-container" width="1382" height="1507" scrolling="no" data-html2canvas-ignore="true" style="visibility: hidden; position: fixed; left: -10000px; top: 0px; border: 0px;"></iframe></body></html>
+<iframe class="html2canvas-container" width="1382" height="1507" scrolling="no" data-html2canvas-ignore="true" style="visibility: hidden; position: fixed; left: -10000px; top: 0px; border: 0px;"></iframe><iframe class="html2canvas-container" width="1382" height="1692" scrolling="no" data-html2canvas-ignore="true" style="visibility: hidden; position: fixed; left: -10000px; top: 0px; border: 0px;"></iframe></body></html>

@@ -21,7 +21,7 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th style="min-width: 450px;">Form Name</th>
+                <th style="min-width: 450px;">Form Title</th>
                 <th style="min-width: 450px;">File</th>
                 <th>Action</th>
             </tr>
@@ -35,6 +35,8 @@
 
                         <td>
                             <div class="d-flex">
+                                <a target="_blank" href="{{ url('public/forms/form_'. $value->path. '.php') }}"><button
+                                        class="btn-form-classic me-2">Preview</button></a>
                                 <a href="{{ url('form/edit/'. $value->id) }}"><button
                                         class="btn-form-classic me-2">Edit</button></a>
                                 <button class="btn-form-classic" onclick="show(this)">Delete</button>
