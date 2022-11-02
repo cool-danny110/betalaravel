@@ -21,8 +21,9 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th style="min-width: 450px;">Form Title</th>
-                <th style="min-width: 450px;">File</th>
+                <th>Form Title</th>
+                <th>Form Link</th>
+                <th>File</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -31,6 +32,7 @@
                 @foreach($data as $key => $value)
                     <tr>
                         <td>{{ $value->name }}</td>
+                        <td>{{ url('public/forms/form_'. $value->path. '.php') }}</td>
                         <td>{{ $value->path. '.json' }}</td>
 
                         <td>

@@ -102,9 +102,9 @@ class ContactController extends Controller
         if(!$this->user_id)
             return redirect()->to(env('base_url'). '/?page_id=394');
 
-        $contacts = Contact::where('email', $request->email)->get();
-        if(count($contacts) != 0)
-            return redirect()->back()->with('error', 'Email is already taken');
+        // $contacts = Contact::where('email', $request->email)->get();
+        // if(count($contacts) != 0)
+        //     return redirect()->back()->with('error', 'Email is already taken');
 
         $new_contact = [
             'user_id' => $this->user_id,
