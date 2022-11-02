@@ -1080,7 +1080,7 @@ if (file_exists(\$current_file_path . \$current_file_name)) {
                 $if_posted_7[] = '        // send email';
             }
             $if_posted_7[] = '        $email_config = array(';
-            $if_posted_7[] = '            \'sender_email\'    => \'' . $this->json_form->senderEmail . '\',';
+            $if_posted_7[] = '            \'sender_email\'    => \'' . 'test@hybridmail.techics.co' . '\',';
             $if_posted_7[] = '            \'recipient_email\' => \'' . $this->json_form->recipientEmail . '\',';
             $if_posted_7[] = '            \'subject\'         => \'' . $this->json_form->subject . '\',';
             if (!empty($this->json_form->senderName)) {

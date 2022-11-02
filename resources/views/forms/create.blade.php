@@ -37,7 +37,7 @@
                         base-url="{{ url('') }}" csrf="{{ csrf_token() }}" style="font-size: 20px;">Save
                         <i class="fa fa-save ms-2 text-white"></i></button>
                     <button id="main-settings-btn" class="btn nowrap w-100 h-100 mx-1 btn-primary" type="button"
-                        data-bs-toggle="modal" data-bs-target="#main-settings-modal" style="font-size: 20px;">Main
+                        data-bs-toggle="modal" data-bs-target="#main-settings-modal" style="font-size: 20px;">Form
                         settings <i class="icon-tools ms-2 text-white"></i></button>
                     <div class="text-right">
                         <a id="preview-btn" href="#" class="btn w-100 mb-1 nowrap btn-warning" data-bs-toggle="modal"
@@ -254,7 +254,7 @@
                 <div class="modal-content" id="user-form-settings">
                     <div class="modal-header">
 
-                        <h5 class="modal-title">Main Settings</h5>
+                        <h5 class="modal-title">Form Settings</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                         </button>
                     </div>
@@ -273,10 +273,9 @@
                                     <li class="nav-item">
                                         <a class="nav-link text-secondary" id="nav-tab-main-settings-action"
                                             data-bs-toggle="tab" href="#tab-main-settings-action" role="tab"
-                                            aria-controls="tab-main-settings-action" aria-selected="false">Form
-                                            action</a>
+                                            aria-controls="tab-main-settings-action" aria-selected="false">Email Config</a>
                                     </li>
-                                    <li class="nav-item">
+                                    <!-- <li class="nav-item">
                                         <a class="nav-link text-secondary" id="nav-tab-main-settings-plugins"
                                             data-bs-toggle="tab" href="#tab-main-settings-plugins" role="tab"
                                             aria-controls="tab-main-settings-plugins" aria-selected="false">Form
@@ -287,7 +286,7 @@
                                             data-bs-toggle="tab" href="#tab-main-settings-ajax" role="tab"
                                             aria-controls="tab-main-settings-ajax" aria-selected="false">Ajax
                                             loading</a>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </div>
                             <div class="row justify-content-center">
@@ -308,7 +307,7 @@
 
                                     <section id="user-form-settings-action"></section>
                                     <div id="collapsible-form-actions" class="accordion mt-4">
-                                        <fieldset id="send-email" class="collapse"
+                                        <fieldset id="send-email" class="collapse show"
                                             data-parent="#collapsible-form-actions">
                                             <legend class="h4 pb-2 border-bottom border-bottom-gray fw-light">Send email
                                             </legend>
