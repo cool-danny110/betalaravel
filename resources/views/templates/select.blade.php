@@ -121,7 +121,7 @@
                 <div class="col-md-3" id="template_card_{{ $id }}">
                     <div class="card mb-4 shadow-sm"
                         style="{{ session('badge') == $id ? 'border: solid 3px red' : '' }}">
-                        <div style="height: 400px; width: 100%; background-size: 100% auto; background-image:url('{{asset('public/templates/user/'. $template_id. '/thumb.png')}}')">
+                        <div style="height: 400px; width: 100%; background-size: 100% auto; background-repeat: no-repeat; background-image:url('{{asset('public/templates/user/'. $template_id. '/thumb.png')}}')">
 
                         </div>
                         <div class="card-body">
