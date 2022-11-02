@@ -25374,7 +25374,7 @@ var FormSettings = /** @class */ (function (_super) {
                 prop: 'framework'
             },
             name: 'framework-data',
-            label: 'Form Style Framework',
+            label: 'Framework',
             value: this.userForm.framework
         };
         var frameworkOptions = [
@@ -25426,41 +25426,41 @@ var FormSettings = /** @class */ (function (_super) {
         var $selectLayout = this.addSelect(LayoutData, LayoutOptions);
         $mainTab.push($selectLayout);
         // id
-        // var idData = {
-        //     data: {
-        //         prop: 'id'
-        //     },
-        //     label: 'Form name',
-        //     name: 'form-id',
-        //     helper: 'Lowercase alphanumeric characters, hyphens and underscrores only',
-        //     value: this.userForm.id
-        // };
-        // var $inputId = this.addInput(idData);
-        // $mainTab.push($inputId);
+        var idData = {
+            data: {
+                prop: 'id'
+            },
+            label: 'Form name',
+            name: 'form-id',
+            helper: 'Lowercase alphanumeric characters, hyphens and underscrores only',
+            value: this.userForm.id
+        };
+        var $inputId = this.addInput(idData);
+        $mainTab.push($inputId);
         // Class
-        // var clazzData = {
-        //     data: {
-        //         prop: 'clazz'
-        //     },
-        //     label: 'Form class',
-        //     name: 'clazz',
-        //     helper: 'Optional additional CSS classes',
-        //     value: this.userForm.clazz
-        // };
-        // var $inputClazz = this.addInput(clazzData);
-        // $mainTab.push($inputClazz);
+        var clazzData = {
+            data: {
+                prop: 'clazz'
+            },
+            label: 'Form class',
+            name: 'clazz',
+            helper: 'Optional additional CSS classes',
+            value: this.userForm.clazz
+        };
+        var $inputClazz = this.addInput(clazzData);
+        $mainTab.push($inputClazz);
         // Attr
-        // var attrData = {
-        //     data: {
-        //         prop: 'attr'
-        //     },
-        //     label: 'Form attributes',
-        //     name: 'form-attr',
-        //     helper: 'Optional additional <a href="https://www.phpformbuilder.pro/documentation/class-doc.php#attr" target="_blank">attributes</a>. Comma separated list without quotes',
-        //     value: this.userForm.attr
-        // };
-        // var $inputAttr = this.addInput(attrData);
-        // $mainTab.push($inputAttr);
+        var attrData = {
+            data: {
+                prop: 'attr'
+            },
+            label: 'Form attributes',
+            name: 'form-attr',
+            helper: 'Optional additional <a href="https://www.phpformbuilder.pro/documentation/class-doc.php#attr" target="_blank">attributes</a>. Comma separated list without quotes',
+            value: this.userForm.attr
+        };
+        var $inputAttr = this.addInput(attrData);
+        $mainTab.push($inputAttr);
         // Icon font
         var selectData = {
             data: {
@@ -25494,30 +25494,30 @@ var FormSettings = /** @class */ (function (_super) {
         var $inputRedirect = this.addInput(redirectData);
         $actionTab.push($inputRedirect);
         // afterValidation
-        // var afterValidationData = {
-        //     data: {
-        //         prop: 'aftervalidation'
-        //     },
-        //     name: 'aftervalidation-data',
-        //     label: 'After validation',
-        //     value: this.userForm.aftervalidation
-        // };
-        // var afterValidationOptions = [
-        //     {
-        //         'Send email': 'send-email'
-        //     },
-        //     {
-        //         'Database insert': 'db-insert'
-        //     },
-        //     {
-        //         'Database update': 'db-update'
-        //     },
-        //     {
-        //         'Database delete': 'db-delete'
-        //     }
-        // ];
-        // var $selectAfterValidation = this.addSelect(afterValidationData, afterValidationOptions);
-        // $actionTab.push($selectAfterValidation);
+        var afterValidationData = {
+            data: {
+                prop: 'aftervalidation'
+            },
+            name: 'aftervalidation-data',
+            label: 'After validation',
+            value: this.userForm.aftervalidation
+        };
+        var afterValidationOptions = [
+            {
+                'Send email': 'send-email'
+            },
+            {
+                'Database insert': 'db-insert'
+            },
+            {
+                'Database update': 'db-update'
+            },
+            {
+                'Database delete': 'db-delete'
+            }
+        ];
+        var $selectAfterValidation = this.addSelect(afterValidationData, afterValidationOptions);
+        $actionTab.push($selectAfterValidation);
         /*=============================================
         =                 Form Actions                =
         =============================================*/
@@ -25559,41 +25559,41 @@ var FormSettings = /** @class */ (function (_super) {
         };
         var $inputSubject = this.addInput(subjectData);
         $sendMailTab.push($inputSubject);
-        // var $subTitle2 = $('<h5 />').addClass('mt-4 px-3 py-2 bg-light fw-light').text('Optional data');
-        // $sendMailTab.push($subTitle2);
-        // var senderNameData = {
-        //     data: {
-        //         prop: 'senderName'
-        //     },
-        //     label: 'Sender name',
-        //     name: 'sender-name',
-        //     helper: 'The name of the sender. (optional)',
-        //     value: this.userForm.senderName
-        // };
-        // var $inputSenderName = this.addInput(senderNameData);
-        // $sendMailTab.push($inputSenderName);
-        // var replyToData = {
-        //     data: {
-        //         prop: 'replyToEmail'
-        //     },
-        //     label: 'Reply to email',
-        //     name: 'reply-to-email',
-        //     helper: 'The email for reply. (optional)',
-        //     value: this.userForm.replyToEmail
-        // };
-        // var $inputReplyTo = this.addInput(replyToData);
-        // $sendMailTab.push($inputReplyTo);
-        // var sentMessageData = {
-        //     data: {
-        //         prop: 'sentMessage'
-        //     },
-        //     label: 'Sent message',
-        //     name: 'sent-message',
-        //     helper: 'The success message to display on the page (optional)',
-        //     value: this.userForm.sentMessageEmail
-        // };
-        // var $inputSent = this.addInput(sentMessageData);
-        // $sendMailTab.push($inputSent);
+        var $subTitle2 = $('<h5 />').addClass('mt-4 px-3 py-2 bg-light fw-light').text('Optional data');
+        $sendMailTab.push($subTitle2);
+        var senderNameData = {
+            data: {
+                prop: 'senderName'
+            },
+            label: 'Sender name',
+            name: 'sender-name',
+            helper: 'The name of the sender. (optional)',
+            value: this.userForm.senderName
+        };
+        var $inputSenderName = this.addInput(senderNameData);
+        $sendMailTab.push($inputSenderName);
+        var replyToData = {
+            data: {
+                prop: 'replyToEmail'
+            },
+            label: 'Reply to email',
+            name: 'reply-to-email',
+            helper: 'The email for reply. (optional)',
+            value: this.userForm.replyToEmail
+        };
+        var $inputReplyTo = this.addInput(replyToData);
+        $sendMailTab.push($inputReplyTo);
+        var sentMessageData = {
+            data: {
+                prop: 'sentMessage'
+            },
+            label: 'Sent message',
+            name: 'sent-message',
+            helper: 'The success message to display on the page (optional)',
+            value: this.userForm.sentMessageEmail
+        };
+        var $inputSent = this.addInput(sentMessageData);
+        $sendMailTab.push($inputSent);
         /* Database insert
         -------------------------------------------------- */
         var $dbInsertTab = [];
