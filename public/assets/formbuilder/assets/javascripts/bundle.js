@@ -25526,17 +25526,17 @@ var FormSettings = /** @class */ (function (_super) {
         var $sendMailTab = [];
         var $subTitle1 = $('<h5 />').addClass('px-3 py-2 bg-light fw-light').text('Required data');
         $sendMailTab.push($subTitle1);
-        // var senderEmailData = {
-        //     data: {
-        //         prop: 'senderEmail'
-        //     },
-        //     label: 'Sender email<sup class="ms-1 text-danger">*</sup>',
-        //     name: 'sender-email',
-        //     helper: 'The email of the sender. Must be a real email address from your domain to avoid SPAM filters',
-        //     value: this.userForm.senderEmail
-        // };
-        // var $inputSenderEmail = this.addInput(senderEmailData);
-        // $sendMailTab.push($inputSenderEmail);
+        var senderEmailData = {
+            data: {
+                prop: 'senderEmail'
+            },
+            label: 'Sender email<sup class="ms-1 text-danger">*</sup>',
+            name: 'sender-email',
+            helper: 'The email of the sender. Must be a real email address from your domain to avoid SPAM filters',
+            value: this.userForm.senderEmail
+        };
+        var $inputSenderEmail = this.addInput(senderEmailData);
+        $sendMailTab.push($inputSenderEmail);
         var recipientEmailData = {
             data: {
                 prop: 'recipientEmail'
