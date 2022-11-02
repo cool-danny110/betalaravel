@@ -15,6 +15,7 @@ yarn-error.log
 /public/uploads
 /public/builders
 /public/forms
+/public/assets/file-uploads
 /resources/views/emails
 /.idea
 /.vscode
