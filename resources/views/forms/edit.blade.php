@@ -269,14 +269,14 @@
 
                                 <ul class="col-md-8 nav nav-tabs" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link text-secondary active" id="nav-tab-main-settings-main"
-                                            data-bs-toggle="tab" href="#tab-main-settings-main" role="tab"
-                                            aria-controls="tab-main-settings-main" aria-selected="true">Style Setting</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-secondary" id="nav-tab-main-settings-action"
+                                        <a class="nav-link text-secondary active" id="nav-tab-main-settings-action"
                                             data-bs-toggle="tab" href="#tab-main-settings-action" role="tab"
                                             aria-controls="tab-main-settings-action" aria-selected="false">Email Setting</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-secondary" id="nav-tab-main-settings-main"
+                                            data-bs-toggle="tab" href="#tab-main-settings-main" role="tab"
+                                            aria-controls="tab-main-settings-main" aria-selected="true">Style Setting</a>
                                     </li>
                                     <!-- <li class="nav-item">
                                         <a class="nav-link text-secondary" id="nav-tab-main-settings-plugins"
@@ -300,19 +300,19 @@
                         </div>
                         <div class="container">
                             <div class="row justify-content-center tab-content">
-                                <div id="tab-main-settings-main" class="col-md-8 tab-pane fade show active"
+                                <div id="tab-main-settings-main" class="col-md-8 tab-pane fade"
                                     role="tabpanel" aria-labelledby="nav-tab-main-settings-main">
 
                                     <section id="user-form-settings-main"></section>
                                 </div>
-                                <div id="tab-main-settings-action" class="col-md-8 tab-pane fade" role="tabpanel"
+                                <div id="tab-main-settings-action" class="col-md-8 tab-pane fade show active" role="tabpanel"
                                     aria-labelledby="nav-tab-main-settings-action">
 
                                     <section id="user-form-settings-action"></section>
                                     <div id="collapsible-form-actions" class="accordion mt-4">
                                         <fieldset id="send-email" class="collapse show"
                                             data-parent="#collapsible-form-actions">
-                                            <legend class="h4 pb-2 border-bottom border-bottom-gray fw-light">Send email
+                                            <legend class="h4 p-2 border-bottom border-bottom-gray fw-light bg-danger">Send email
                                             </legend>
 
                                             <section id="user-form-settings-sendmail"></section>
