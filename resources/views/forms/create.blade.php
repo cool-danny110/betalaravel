@@ -267,13 +267,12 @@
                                     <li class="nav-item">
                                         <a class="nav-link text-secondary active" id="nav-tab-main-settings-main"
                                             data-bs-toggle="tab" href="#tab-main-settings-main" role="tab"
-                                            aria-controls="tab-main-settings-main" aria-selected="true">Form
-                                            settings</a>
+                                            aria-controls="tab-main-settings-main" aria-selected="true">Style Setting</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link text-secondary" id="nav-tab-main-settings-action"
                                             data-bs-toggle="tab" href="#tab-main-settings-action" role="tab"
-                                            aria-controls="tab-main-settings-action" aria-selected="false">Email Config</a>
+                                            aria-controls="tab-main-settings-action" aria-selected="false">Email Setting</a>
                                     </li>
                                     <!-- <li class="nav-item">
                                         <a class="nav-link text-secondary" id="nav-tab-main-settings-plugins"
