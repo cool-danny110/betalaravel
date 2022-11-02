@@ -1,11 +1,6 @@
 body {
     font-family: 'Varela Round';
 }
-
-
-
-
-
 .logo-1 {
     line-height: 27px;width: 140px;padding: 0;color: #81B441;margin: -1px;overflow: visible;font-size: 18px;border: 0;top: 9px;left: 53px;
 }
@@ -16,7 +11,7 @@ body {
     font-weight:100;
 }
 .logo-1-js {
-    font-family: 'Comfortaa'; color: #cf0b0b; font-weight: 700;
+    font-family: 'Comfortaa'; color: #e74f38; font-weight: 700;
 }
 .overflow-hidden {
     overflow: hidden;
@@ -28,7 +23,7 @@ body {
 }
 .js-2 {
     font-family: 'Comfortaa';
-    color: #cf0b0b;
+    color: #e74f38;
     font-weight: 700;
     font-size: 60px;
 }

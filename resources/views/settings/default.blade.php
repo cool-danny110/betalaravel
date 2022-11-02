@@ -1,7 +1,7 @@
 @extends('layouts.app')
 <title>ACCOUNT : Default Settings</title>
 @section('content')
-<div class="content">
+<div class="content-box">
 	<div class="my_box">
 		@if ( session('success'))
 			<div class="alert alert-success alert-dismissible fade show mt-4" role="alert">

@@ -11,22 +11,10 @@
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 @endsection
 @section('content')
-<div class="content">
+<div class="content-box">
     <div class="sub-header">
         Edit Template
     </div>
-    <!-- <div class="content-tool mt-3 mb-4">
-        <a href="{{ url('contact/import') }}">
-            <button class="btn-form-primary me-4">
-                Import Contact
-            </button>
-        </a>
-        <a href="{{ url('contact/create') }}">
-            <button class="btn-form-danger text-white">
-                + Add Contact
-            </button>
-        </a>
-    </div> -->
 
     <div class="contact-content mt-2">
         <div style="text-align: center;
@@ -284,7 +272,14 @@
             ]
         });
 
-        editor.init();
+         // @RSS plugin We don't use it for now.
+        // var rssWidget = new RssWidget({ handler: 'rss.php' });
+        // editor.addWidget(rssWidget, { index: 10 });
+
+        $( document ).ready(function() {
+            editor.init();
+        });
+        // editor.init();
     });
 
     function savethumbnail() {

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 <title>ACCOUNT : Start New Campaign</title>
 @section('content')
-<div class="content">
+<div class="content-box">
   <div class="box_body" >
     <div class="row w100 mt-15">
       <div class="col-md-6 my_center">

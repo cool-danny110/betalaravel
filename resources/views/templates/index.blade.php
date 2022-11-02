@@ -72,7 +72,7 @@
 
 </style>
 @section('content')
-<div class="content contact-form">
+<div class="content-box contact-form">
     <div class="sub-header">
         Templates
     </div>
@@ -121,7 +121,7 @@
                 <div class="col-md-3" id="template_card_{{ $id }}">
                     <div class="card mb-4 shadow-sm"
                         style="{{ session('badge') == $id ? 'border: solid 3px red' : '' }}">
-                        <div style="height: 400px; width: 100%; background-size: 100% auto; background-image:url('{{asset('public/templates/user/'. $template_id. '/thumb.png')}}')">
+                        <div style="height: 400px; width: 100%; background-size: 100% auto; background-repeat: no-repeat; background-image:url('{{asset('public/templates/user/'. $template_id. '/thumb.png')}}')">
 
                         </div>
                         <div class="card-body">
@@ -168,6 +168,9 @@
             if ($name != '0_3_form_builder') {
                 $path = __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/featured/" . $name;
                 $files = glob($path . "/index.html");
+                if(!file_exists($path . "/index.html")){
+                    continue;
+                }
                 $content = file_get_contents($files[0]);
                 $preg_matchs = preg_match_all('/(<title\>([^<]*)\<\/title\>)/i', $content, $m);
                 $title = $m[2][0];
@@ -224,17 +227,27 @@
         foreach ($templateUrl as $name) {
             if ($name != '0_3_form_builder') {
                 $path = __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/default/" . $name;
+                if(!file_exists($path . "/index.html")){
+                    continue;
+                }
                 $files = glob($path . "/index.html");
                 $content = file_get_contents($files[0]);
                 $preg_matchs = preg_match_all('/(<title\>([^<]*)\<\/title\>)/i', $content, $m);
                 $title = $m[2][0];
 
+                $thumbPath = __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/default/" . $name. '/thumb.svg';
+                $thumbType = ".svg";
+
+                if (!file_exists($thumbPath)) {
+                    $thumbType = ".png";
+                }
+                
                 $id = $name; ?>
                 <div class="col-md-3">
                     <div class="card mb-4 shadow-sm">
                         <a>
                             <img width="100%" height="100%" class="_1xvs1"
-                                src="{{ asset('public/templates/default/'. $name. '/thumb.png') }}"
+                                src="{{ asset('public/templates/default/'. $name. '/thumb'. $thumbType) }}"
                                 title="<?php echo $title ?>" alt="<?php echo $title ?>">
                         </a>
                         <div class="card-body">
@@ -263,6 +276,72 @@
         </div>
     </div>
     <!-- Default Template End -->
+
+    <!-- Custom Template Start -->
+    <div class="album py-5 bg-light" id="example">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="font-weight-normal font-size-40">Or upload your template and edit</h2>
+                <p class="text-muted">
+                    If you already have an email or page template, just load it to the editor and start editing...
+                </p>
+            </div>
+            <div class="row">
+                <?php
+        $dir = __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/custom/";
+        $templateUrl = array_diff(scandir($dir), array('..', '.'));
+        foreach ($templateUrl as $name) {
+            if ($name != '0_3_form_builder') {
+                $path = __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/custom/" . $name;
+                if(!file_exists($path . "/index.html")){
+                    continue;
+                }
+                $files = glob($path . "/index.html");
+                $content = file_get_contents($files[0]);
+                $preg_matchs = preg_match_all('/(<title\>([^<]*)\<\/title\>)/i', $content, $m);
+                $title = $m[2][0];
+
+                $thumbPath = __DIR__ . DIRECTORY_SEPARATOR . "../../../public/templates/custom/" . $name. '/thumb.svg';
+                $thumbType = ".svg";
+
+                if (!file_exists($thumbPath)) {
+                    $thumbType = ".png";
+                }
+                
+                $id = $name; ?>
+                <div class="col-md-3">
+                    <div class="card mb-4 shadow-sm">
+                        <a>
+                            <img width="100%" height="100%" class="_1xvs1"
+                                src="{{ asset('public/templates/custom/'. $name. '/thumb'. $thumbType) }}"
+                                title="<?php echo $title ?>" alt="<?php echo $title ?>">
+                        </a>
+                        <div class="card-body">
+                            <h5><?php echo $title ?></h5>
+                            <div class="JHf2a mb-4 small text-muted item-desc"><i> by </i><a class="R8zaM"
+                                    href="javascript:;">HybridMail</a><span> at </span><a class="R8zaM"
+                                    href="javascript:;">KrenkyStudio</a></div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <form method="post" action="{{ url('/template/select') }}">
+                                        @csrf
+                                        <input name="id" value="{{ $id }}" hidden />
+                                        <input name="type" value="custom" hidden />
+                                        <button type="submit" class="btn btn-sm btn-primary">Select</button>
+                                    </form>
+                                </div>
+                                <!-- <a href="#"><small class="text-muted">Preview</small></a> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php
+            }
+        } ?>
+            </div>
+        </div>
+    </div>
+    <!-- Custom Template End -->
 </div>
 @endsection
 

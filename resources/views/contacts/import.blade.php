@@ -1,7 +1,7 @@
 @extends('layouts.app')
 <title>ACCOUNT : IMPORT CONTACT</title>
 @section('content')
-<div class="content contact-form">
+<div class="content-box contact-form">
     <div class="sub-header">
         Import Contact
     </div>

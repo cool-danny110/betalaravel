@@ -1,7 +1,7 @@
 @extends('layouts.app')
 <title>ACCOUNT : IMPORT CONTACT</title>
 @section('content')
-<div class="content contact-form">
+<div class="content-box contact-form">
     <form method="post" action="{{ route('contact.upload', $groupId) }}">
         @csrf
         <div class="sub-header">

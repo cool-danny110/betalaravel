@@ -1,7 +1,7 @@
 @extends('layouts.app')
 <title>ACCOUNT : Contacts</title>
 @section('content')
-<div class="content">
+<div class="content-box">
     <div class="sub-header">
         Contacts
     </div>

@@ -24,6 +24,12 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="{{ URL::asset('public/assets/libs/dist/builder.js') }}"></script>
+
+    <!-- We will not use RSS plugin for now. -->
+    <!-- <script src="{{ URL::asset('public/assets/plugins/rss/RssElement.js') }}"></script>
+    <script src="{{ URL::asset('public/assets/plugins/rss/RssControl.js') }}"></script>
+    <script src="{{ URL::asset('public/assets/plugins/rss/RssWidget.js') }}"></script> -->
+
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @yield('customStyle')
 </head>
@@ -48,7 +54,7 @@
             style="width: 280px; min-height: calc(100vh - 130px)">
             <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
-                    <a href="{{ url('/dashboard') }}" class="nav-link" aria-current="page">
+                    <a href="{{ url('/dashboard') }}" class="nav-link text-white" aria-current="page">
                         <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="currentColor"
                             class="bi bi-house-door" viewBox="0 0 16 16">
                             <path

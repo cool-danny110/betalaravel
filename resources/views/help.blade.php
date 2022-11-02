@@ -1,7 +1,7 @@
 @extends('layouts.app')
 <title>ACCOUNT : Help</title>
 @section('content')
-<div class="content">
+<div class="content-box">
     <div class="my_box">
 
     <div class="box_head">

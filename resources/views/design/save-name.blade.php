@@ -1,7 +1,7 @@
 @extends('layouts.app')
 <title>ACCOUNT : Save Template</title>
 @section('content')
-<div class="content contact-form">
+<div class="content-box contact-form">
     <div class="sub-header">
       Save Template
     </div>

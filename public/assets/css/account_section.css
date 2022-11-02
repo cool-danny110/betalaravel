@@ -65,9 +65,9 @@
     background: none !important;
   }
 
-  .nav-link {
+  /* .nav-link {
     color: #fff !important;
-  }
+  } */
 
   .my_sidebar .nav-link svg {
     margin: -6px 8px 0 0;
@@ -1045,7 +1045,7 @@
 
   /*------------------------------- END OF IMPORT / NEW CAMPAIGN -------------------------*/
 
-  .content {
+  .content-box {
     max-width: 1440px;
     padding: 20px;
     width: 100%;
@@ -1286,4 +1286,33 @@
     color: #c0ccda
   }
   
+
+  /* Template builder design.php Css styles */
+
+  .lds-dual-ring {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+}
+.lds-dual-ring:after {
+    content: " ";
+    display: block;
+    width: 30px;
+    height: 30px;
+    margin: 4px;
+    border-radius: 80%;
+    border: 2px solid #aaa;
+    border-color: #007bff transparent #007bff transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
   /* ============================== END OF CSS OF Jovan =============================== */

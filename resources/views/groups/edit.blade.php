@@ -1,7 +1,7 @@
 @extends('layouts.app')
 <title>ACCOUNT : EDIT GROUP</title>
 @section('content')
-<div class="content contact-form">
+<div class="content-box contact-form">
     <div class="sub-header">
         Edit Group
     </div>
