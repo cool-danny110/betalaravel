@@ -1,5 +1,10 @@
 @extends('layouts.app')
 <title>ACCOUNT : Campaigns</title>
+@section('customStyle')
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+</script>
+@endsection
 @section('content')
 <div class="content-box">
     <div class="sub-header">
@@ -17,9 +22,20 @@
                 </div>
             </div>
         </div>
+        <div class="d-none align-items-center animation">
+            <div class="progress blue" style="width: 40px; height: 40px; margin: 0px 10px;"> 
+                <span class="progress-left"> <span class="progress-bar" style="border-width: 4px;"></span> </span> <span class="progress-right"> <span class="progress-bar" style="border-width: 4px;"></span> </span>
+            </div>
+            <p class="m-0" style="font-size: 18px;">Sending . . . </p>
+        </div>
         @if ( session('success'))
             <div class="alert alert-success alert-dismissible fade show mt-4" role="alert">
                 {{ session('success') }}
+            </div>
+        @endif
+        @if ( session('error'))
+            <div class="alert alert-success alert-dismissible fade show mt-4" role="alert">
+                {{ session('error') }}
             </div>
         @endif
 
@@ -49,9 +65,9 @@
                         <tr>
                             <th style="min-width: 450px;">Campaigns</th>
                             <th>Recipients</th>
-                            <th>Openers</th>
-                            <th>Clickers</th>
-                            <th>Unsub.</th>
+                            <!-- <th>Openers</th> -->
+                            <!-- <th>Clickers</th> -->
+                            <!-- <th>Unsub.</th> -->
                             <th style="width: 150px;">Action</th>
                         </tr>
                     </thead>
@@ -71,22 +87,20 @@
                                             <input type="submit" value="Duplicate">
                                             </form>
                                             <span> • </span>
-                                            <form action="{{route('campaign.sendtest')}}" method="POST">
-                                            @csrf
-                                            <input name="id" value="{{$value->id}}" hidden>
-                                            <input type="submit" value="Send a test">
-                                            </form>
+                                            <a data-bs-toggle="modal" data-bs-target="#sendTestModal">Send a test</a>
                                         <div>
                                     </td>
                                     <td></td>
+                                    <!-- <td></td>
                                     <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td></td> -->
                                     <td>
-                                        <form action="{{route('campaign.sendtest')}}" method="POST" style="margin-bottom:10px;">
+                                        <form class="send_campaign_form" action="{{route('campaign.sendcampaign')}}" method="POST" style="margin-bottom:10px;">
                                             @csrf
                                             <input name="id" value="{{$value->id}}" hidden>
-                                            <button type="submit" class="btn-form-classic w-100">Send campaign</button>
+                                            <button type="submit" class="btn-form-classic w-100">
+                                                Send campaign
+                                            </button>
                                         </form>
                                         <div class="d-flex justify-content-between">
                                             <a href="{{url('campaign/edit/'. $value->id)}}"><button class="btn-form-classic">Edit</button></a>
@@ -113,11 +127,61 @@
                 {!! $data->links() !!}
             </div>
         </div>
+        <!-- Modal -->
+        <div class="modal fade" id="sendTestModal" tabindex="-1" aria-labelledby="sendTestModalLabel" aria-hidden="true" role="dialog">
+            <div class="modal-dialog  modal-dialog-centered">
+                <div class="modal-content">
+                    <form action="{{route('campaign.sendtest')}}" method="POST">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="sendTestModalLabel">Send a test email for campaign</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            @csrf
+                            <input name="id" value="{{$value->id}}" hidden>
+                            <label class="form-label" for="receiver_email">Please input test campaign receiver address.</label>
+                            <input type="email" class="form-control form-input" name="receiver_email" id="receiver_email" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn-primary">Send a test</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
-@endsection
 
+@endsection
+@section('script')
 <script>
+    var doSubmit = false;
+    $(document).ready(function(){
+        $('.send_campaign_form').submit(function (event) {
+            var form = $(this);
+            console.log('Preventing');
+            $(".animation").removeClass('d-none');
+            $(".animation").addClass('d-flex');
+            if(doSubmit) {
+                doSubmit = false;
+            } else {
+                event.preventDefault();
+
+                const myTimeout = setTimeout(submitForm, 4000);
+
+                function submitForm() {
+                    console.log("Finished")
+                    doSubmit = true;
+                    form.submit();
+                    clearTimeout(myTimeout);
+                }
+            }
+            
+        });
+    });
+
     function cancel(obj) {
         $(obj).parent().css('display', 'none');
     }
@@ -127,5 +191,11 @@
         console.log($(obj).parent().parent().find('.confirm-delete')[0].style.display);
         $(obj).parent().parent().find('.confirm-delete')[0].style.display = "flex";
     }
+
+    // function sendCampaignAnimation(e) {
+    //     e.preventDefault()
+    // }
+
 </script>
+@endsection
 

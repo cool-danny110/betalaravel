@@ -152,7 +152,46 @@ class CampaignController extends Controller
             return view('forbidden');
 
         $result = Campaign::where('id', $request->id)->first();
+        if($result->template == NULL) {
+            return redirect()->route('campaign.index')->with('error', "Campaign template doesn't exist."); 
+        }
         $templateId = $result->template->template_id;
+
+        try{
+            $subject = $result->subject_line;
+            $from_email = $result->from_email;
+            $from_name = $result->from_name;
+           
+            $param = array();
+            $address = $request->receiver_email;
+
+            $result = Mail::send('emails.'. $templateId, $param, function ($message) use($address, $subject, $from_email, $from_name) {
+                $message->to($address, 'Hybridmail Techics')->subject($subject);
+                $message->from($from_email, $from_name);
+            });
+        } catch (\Exception $e) {
+            // Log error
+            // Flag email for retry
+            // continue;
+         }
+        
+        return redirect()->route('campaign.index')->with('success', 'The test email is successfully sent.');
+    }
+
+    function sendcampaign(Request $request) {
+        if(!$this->user_id)
+            return redirect()->to(env('base_url'). '/?page_id=394');
+
+        // If the campaign is not assigned to current user, throw exception
+        $result = Campaign::where('user_id', $this->user_id)->where('id', $request->id)->first();
+        if(!$result)
+            return view('forbidden');
+
+        $result = Campaign::where('id', $request->id)->first();
+        $templateId = $result->template->template_id;
+        if($result->template == NULL) {
+            return redirect()->route('campaign.index')->with('error', "Campaign template doesn't exist."); 
+        }
         $receiver_emails =  json_decode($result->receiver_emails);
         $group_list = array();
         foreach($receiver_emails as $group) {
@@ -160,7 +199,7 @@ class CampaignController extends Controller
         }
         $contacts = Contact::whereIn('group_id', $group_list)->get();
         if(count($contacts) == 0) {
-            return redirect()->route('campaign.index')->with('success', 'Your contact group is empty unable to send email.'); 
+            return redirect()->route('campaign.index')->with('error', 'Your contact group is empty unable to send email.'); 
         }
         try{
             $subject = $result->subject_line;
@@ -182,7 +221,6 @@ class CampaignController extends Controller
             // continue;
          }
         
-        return redirect()->route('campaign.index')->with('success', 'The email(s) are successfully sent.');
-
+        return redirect()->route('campaign.index')->with('success', 'The campaign email(s) are successfully sent.');
     }
 }
