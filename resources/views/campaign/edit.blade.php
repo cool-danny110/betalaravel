@@ -118,7 +118,7 @@
     <!-- Design Section End -->
 
     <!-- Advanced settings Section Start -->
-    <fieldset>
+    <fieldset style="display:none">
       <legend><i class="fa fa-check-circle me-2 green-circle"></i>Advanced settings:</legend>
       <div class="advanced_settings" style="padding: 20px;">
         <label class="setting" for="newsletter_settings">Newsletter settings:</label>

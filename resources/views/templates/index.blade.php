@@ -127,7 +127,7 @@
                         <div class="card-body">
                             <h5><?php echo $name ?></h5>
                             <div class="JHf2a mb-4 small text-muted item-desc">
-                                {{ date_format($template->created_at, 'H:i d-m-Y') }}
+                                {{ date_format($template->created_at, 'H:i | d-m-Y') }}
                             </div>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
@@ -185,10 +185,7 @@
                         </a>
                         <div class="card-body">
                             <h5><?php echo $title ?></h5>
-                            <div class="JHf2a mb-4 small text-muted item-desc"><i> by </i><a class="R8zaM"
-                                    href="javascript:;">HybridMail</a><span> at </span><a class="R8zaM"
-                                    href="javascript:;">KrenkyStudio</a></div>
-                            <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex justify-content-between align-items-center mt-4">
                                 <div class="btn-group">
                                     <form method="post" action="{{ url('/template/select') }}">
                                         @csrf
@@ -252,10 +249,7 @@
                         </a>
                         <div class="card-body">
                             <h5><?php echo $title ?></h5>
-                            <div class="JHf2a mb-4 small text-muted item-desc"><i> by </i><a class="R8zaM"
-                                    href="javascript:;">HybridMail</a><span> at </span><a class="R8zaM"
-                                    href="javascript:;">KrenkyStudio</a></div>
-                            <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex justify-content-between align-items-center mt-4">
                                 <div class="btn-group">
                                     <form method="post" action="{{ url('/template/select') }}">
                                         @csrf
@@ -318,10 +312,7 @@
                         </a>
                         <div class="card-body">
                             <h5><?php echo $title ?></h5>
-                            <div class="JHf2a mb-4 small text-muted item-desc"><i> by </i><a class="R8zaM"
-                                    href="javascript:;">HybridMail</a><span> at </span><a class="R8zaM"
-                                    href="javascript:;">KrenkyStudio</a></div>
-                            <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex justify-content-between align-items-center mt-4">
                                 <div class="btn-group">
                                     <form method="post" action="{{ url('/template/select') }}">
                                         @csrf

@@ -81,7 +81,7 @@ class CampaignController extends Controller
             'receiver_emails' => $request->receiver_emails,
             'subject_line' => $request->subject_line,
             'preview_text' => $request->preview_text,
-            // 'template_id' => $request->template_id,
+            // 'template_id' => $request->t0emplate_id,
             'active_google_analytics' => $request->active_google_analytics == "on" ? 1 : 0,
             'embed_images' => $request->embed_images == "on" ? 1 : 0,
             'add_tag' => $request->add_tag == "on" ? 1 : 0,

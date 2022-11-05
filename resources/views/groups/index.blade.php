@@ -42,25 +42,28 @@
                             <td>{{ ((isset($_GET['page']) ? $_GET['page'] : 1)  - 1) * env('itemsperpage') + $index }}</td>
                             <td>{{ $value->name }}</td>
                             <td>{{ $value->description }}</td>
-                            <td>{{ $value->count }}</td>
-                            <td>{{ date_format($value->created_at, 'd-m-Y') }}</td>
+                            <td class="text-center">{{ $value->count }}</td>
+                            <td class="text-center">{{ date_format($value->created_at, 'd-m-Y') }}</td>
                             <td>
                                 <div class="d-flex">
                                     <a href="{{ url('contact/'. $value->id) }}"><button
-                                            class="btn-form-classic me-2">Add Contact</button></a>
+                                            class="btn-form-classic me-2">Contacts</button></a>
                                     <a href="{{ url('group/edit/'. $value->id) }}"><button
                                             class="btn-form-classic me-2">Edit Group</button></a>
-                                    <!-- <button class="btn-form-classic" onclick="show(this)">Delete</button> -->
+                                    <button class="btn-form-classic" onclick="show(this)">Delete</button>
                                 </div>
-                                <!-- <form method="post" action="{{ route('group.delete') }}">
+                                <form method="post" action="{{ route('group.delete') }}">
                                     @csrf
                                     <input name="id" value="{{ $value->id }}" hidden />
-                                    <div class="confirm-delete mt-2" style="display:none">
-                                        <button type="submit" class="btn-form-danger text-white me-2">Yes</button>
-                                        <button type="button" class="btn-form-primary"
-                                            onclick="cancel(this)">Cancel</button>
+                                    <div class="confirm-delete" style="display:none">
+                                        <p class="text-danger pt-2">Do you confirm to remove contact group and all of the contacts in it?</p>
+                                        <div class="d-flex mt-2">
+                                            <button type="submit" class="btn-form-danger text-white me-2">Yes</button>
+                                            <button type="button" class="btn-form-primary"
+                                                onclick="cancel(this)">Cancel</button>
+                                        </div>
                                     </div>
-                                </form> -->
+                                </form>
                             </td>
                         </tr>
                         <?php $index++; ?>
@@ -116,7 +119,7 @@
     function show(obj) {
         $('.confirm-delete').css('display', 'none');
         console.log($(obj).parent().parent().find('.confirm-delete')[0].style.display);
-        $(obj).parent().parent().find('.confirm-delete')[0].style.display = "flex";
+        $(obj).parent().parent().find('.confirm-delete')[0].style.display = "block";
     }
 
 </script>

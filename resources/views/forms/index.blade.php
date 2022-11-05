@@ -5,6 +5,16 @@
     <div class="sub-header">
         Forms
     </div>
+    <div style="background:#f9f9f9;  padding: 25px 20px; margin-top: 20px;">
+        <h5>INFORMATION:</h5>
+
+        <p>In this section you can create online forms to collect any desired data you wish. These forms are created online and visible at the provided URL (Form Link). You can simply use this form and link it with any element inside of our HTML BUILDER. </p>
+
+        <p>When you are inside of the FORM BUILDER you need to visit the FORM SETTINGS section and here you need to insert your email address where you wish to receive the information from the built form to. Everytime the customer will fill in and submit the form all the info will be sent by automatic to this email address.</p>
+
+        <p class="m-0">Here is how you can link the created form with our HTML BUILDER:</p>
+        <p>For example you create Template and insert a button there. Then in the settings you can add a URL. You paste the Form Link into the link insert box and save the template. Once your customers receive this email they will click on the desired element and it will take them to the form page.</p>
+    </div>
     <div class="content-tool mt-3 mb-4">
         <a href="{{ url('form/create') }}">
             <button class="btn-form-danger text-white">

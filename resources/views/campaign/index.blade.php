@@ -52,7 +52,7 @@
                             <th>Openers</th>
                             <th>Clickers</th>
                             <th>Unsub.</th>
-                            <th>Action</th>
+                            <th style="width: 150px;">Action</th>
                         </tr>
                     </thead>
                     <tbody style="border-top-width: 0px;">
@@ -83,8 +83,13 @@
                                     <td></td>
                                     <td></td>
                                     <td>
-                                        <div class="d-flex">
-                                            <a href="{{url('campaign/edit/'. $value->id)}}"><button class="btn-form-classic me-2">Edit</button></a>
+                                        <form action="{{route('campaign.sendtest')}}" method="POST" style="margin-bottom:10px;">
+                                            @csrf
+                                            <input name="id" value="{{$value->id}}" hidden>
+                                            <button type="submit" class="btn-form-classic w-100">Send campaign</button>
+                                        </form>
+                                        <div class="d-flex justify-content-between">
+                                            <a href="{{url('campaign/edit/'. $value->id)}}"><button class="btn-form-classic">Edit</button></a>
                                             <button class="btn-form-classic" onclick="show(this)">Delete</button>
                                         </div>
                                         <form method="post" action="{{route('campaign.delete')}}">

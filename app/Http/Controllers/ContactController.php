@@ -78,6 +78,16 @@ class ContactController extends Controller
         return redirect()->route('group.index')->with('success', 'Your group is successfully updated.');
     }
 
+    public function groupdelete(Request $request) {
+        if(!$this->user_id)
+            return redirect()->to(env('base_url'). '/?page_id=394');
+        
+        Group::where('user_id', $this->user_id)->where('id', $request->id)->delete();
+        Contact::where('group_id', $request->id)->delete();
+
+        return redirect()->route('group.index')->with('success', 'Your group and contact(s) in it are successfully removed.');
+
+    }
 
     // ======== Contact Controller ========= //
 

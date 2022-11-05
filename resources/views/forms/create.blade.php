@@ -33,17 +33,17 @@
                             class="icon-bars text-secondary fs-4"></i></a>
                 </div>
                 <div class="col-md-8 d-flex justify-content-between mb-1">
-                    <button id="save-json-on-server-btn" class="btn nowrap w-100 h-100 mx-1 btn-primary" type="button"
+                    <button id="save-json-on-server-btn" class="btn nowrap w-100 h-100 mx-1 btn-success text-white" type="button"
                         base-url="{{ url('') }}" csrf="{{ csrf_token() }}" style="font-size: 20px;">Save
                         <i class="fa fa-save ms-2 text-white"></i></button>
                     <button id="main-settings-btn" class="btn nowrap w-100 h-100 mx-1 btn-primary" type="button"
                         data-bs-toggle="modal" data-bs-target="#main-settings-modal" style="font-size: 20px;">Form
                         settings <i class="icon-tools ms-2 text-white"></i></button>
                     <div class="text-right">
-                        <a id="preview-btn" href="#" class="btn w-100 mb-1 nowrap btn-warning" data-bs-toggle="modal"
-                            data-bs-target="#preview-modal">Preview<i class="icon-eye ms-2"></i></a>
                         <a id="back-btn" href="{{ url('/form') }}"
-                            class="btn w-100 mb-1 nowrap btn-danger">Cancel<i class="fa fa-sign-in ms-2"></i></a>
+                            class="btn w-100 mb-1 nowrap text-white" style="background: #888">Go Back<i class="fa fa-sign-in ms-2"></i></a>
+                        <a id="preview-btn" href="#" class="btn w-100 mb-1 nowrap btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#preview-modal">Preview<i class="icon-eye ms-2"></i></a>
                     </div>
                 </div>
                 <div id="ui-icon-bars-right-column"
