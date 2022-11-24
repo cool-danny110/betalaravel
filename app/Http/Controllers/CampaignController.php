@@ -15,8 +15,8 @@ class CampaignController extends Controller
     protected $user_id;
 
     public function __construct() {
-        $this->user_id = Cache::get('userId');
-        // $this->user_id = 7;
+        // $this->user_id = Cache::get('userId');
+        $this->user_id = 7;
     }
     
     //index view
